@@ -1,12 +1,23 @@
 plugins {
     id("java")
+    application
+    id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
-group = "org.example"
+group = "it.unicam.cs.mpgc.rpg130670"
 version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+}
+
+javafx {
+    version = "21"
+    modules = listOf("javafx.controls", "javafx.fxml", "javafx.graphics")
+}
+
+application {
+    mainClass.set("it.unicam.cs.mpgc.rpg130670.overscaled.Launcher")
 }
 
 dependencies {
