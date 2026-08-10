@@ -1,13 +1,12 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
-import it.unicam.cs.mpgc.rpg130670.overscaled.view.WelcomeView;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapons.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class SceneManager {
 
     private final Stage stage;
-    private String playerName;
 
     public SceneManager(Stage stage) {
         this.stage = stage;
@@ -15,22 +14,32 @@ public class SceneManager {
 
     public void showWelcomeScreen() {
         WelcomeView welcomeView = new WelcomeView(this);
-        Scene scene = new Scene(welcomeView.getRoot(), 800, 600);
-        stage.setScene(scene);
+        stage.setScene(new Scene(welcomeView.getRoot(), 800, 600));
         stage.setTitle("OVERSCALED - Benvenuto");
         stage.show();
     }
 
-    public void showChampionSelectionScreen(String name) {
-        this.playerName = name;
-        System.out.println("Nome giocatore salvato: " + playerName);
-
-        // TODO: Qui richiamerò la vista della selezione campioni
-        // ChampionSelectionView selectionView = new ChampionSelectionView(this);
-        // stage.setScene(new Scene(selectionView.getRoot(), 800, 600));
+    public void showWeaponSelectionScreen(String playerName) {
+        WeaponSelectionView selectionView = new WeaponSelectionView(this, playerName);
+        stage.setScene(new Scene(selectionView.getRoot(), 800, 600));
+        stage.setTitle("OVERSCALED - Selezione Campione");
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public void startGame(String playerName, Weapon selectedWeapon) {
+        System.out.println("Partita Avviata!");
+        System.out.println("Giocatore: " + playerName);
+        System.out.println("Arma Scelta: " + selectedWeapon.getName()
+                + " (DMG: " + selectedWeapon.getBaseDamage()
+                + ", HP: " + selectedWeapon.getBaseMaxHp() + ")");
+
+        // Inizializza e mostra la schermata di gioco vera e propria
+        GameView gameView = new GameView(this, playerName, selectedWeapon);
+        Scene gameScene = new Scene(gameView.getRoot(), 800, 800);
+
+        // Collega i controlli da tastiera per il movimento
+        gameScene.setOnKeyPressed(gameView::handleKeyPress);
+
+        stage.setScene(gameScene);
+        stage.setTitle("OVERSCALED - Mappa della Giungla");
     }
 }

@@ -51,7 +51,7 @@ public class WelcomeView {
             if (inputName.isEmpty()) {
                 errorLabel.setText("Inserisci un nome valido per proseguire!");
             } else {
-                sceneManager.showChampionSelectionScreen(inputName);
+                sceneManager.showWeaponSelectionScreen(inputName);
             }
         });
 
