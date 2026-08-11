@@ -31,4 +31,6 @@ public abstract class Weapon {
     public String getDescription() {
         return description;
     }
+    public abstract int calculateDamageWin(int turn);
+    public abstract int calculateMaxHpWin(int turn);
 }
