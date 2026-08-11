@@ -1,5 +1,9 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.model.weapons;
-
+/**
+ * Classe astratta weapon che serve da struttura per le 3 armi attualmente disponibili nel gioco
+ *
+ * @Author Giannini Giovanni
+ */
 public abstract class Weapon {
 
     private final String name;
@@ -8,7 +12,7 @@ public abstract class Weapon {
     private final String description;
 
     public Weapon(String name, int baseDamage, int baseMaxHp, String description) {
-        // Controllo attualmente inutile ma in caso di sviluppi futuri di una possibile arma a scelta del giocatore potrebbe risultare utile
+        // Controllo attualmente opzionale perchè ci sono 3 weapon ben definite
         if(name==null || name.isEmpty() || baseDamage<=0 || baseMaxHp<=0 || description==null) throw new NullPointerException();
         this.name = name;
         this.baseDamage = baseDamage;
@@ -31,6 +35,7 @@ public abstract class Weapon {
     public String getDescription() {
         return description;
     }
-    public abstract int calculateDamageWin(int turn);
-    public abstract int calculateMaxHpWin(int turn);
+    // Metodi astratti da implementare obbligatoriamente nelle weapon specifiche
+    public abstract int calculateDamageWin(int turn); // Calcolo Damage incrementato dopo un turno vinto
+    public abstract int calculateMaxHpWin(int turn);// Calcolo HP incrementato dopo un turno vinto
 }
