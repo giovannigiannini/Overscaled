@@ -66,7 +66,7 @@ public class WeaponSelectionView {
 
         Button selectButton = new Button("SELEZIONA");
         selectButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        selectButton.setStyle("-fx-background-color: #e67e22; -fx-text-fill: white; -fx-cursor: hand;");
+        selectButton.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-cursor: hand;");
 
         selectButton.setOnAction(e -> sceneManager.startGame(playerName, weapon));
 

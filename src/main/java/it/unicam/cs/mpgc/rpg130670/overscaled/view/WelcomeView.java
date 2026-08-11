@@ -15,14 +15,14 @@ public class WelcomeView {
     private final VBox root;
 
     public WelcomeView(SceneManager sceneManager) {
-        root = new VBox(20); // 20px di spazio tra gli elementi
+        root = new VBox(20);
         root.setAlignment(Pos.CENTER);
-        root.setStyle("-fx-background-color: #1a1a1a;"); // Sfondo scuro stile retro game
+        root.setStyle("-fx-background-color: #1a1a1a;");
 
         // Titolo del gioco
         Label titleLabel = new Label("OVERSCALED");
         titleLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 48));
-        titleLabel.setTextFill(Color.web("#e74c3c"));
+        titleLabel.setTextFill(Color.web("#f1c40f"));
 
         // Sottotitolo
         Label subtitleLabel = new Label("Inserisci il tuo nome per iniziare l'avventura");
@@ -43,7 +43,7 @@ public class WelcomeView {
         // Pulsante Inizia
         Button startButton = new Button("INIZIA");
         startButton.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        startButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 10 25; -fx-cursor: hand;");
+        startButton.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-padding: 10 25; -fx-cursor: hand;");
 
         // Azione al click del pulsante
         startButton.setOnAction(e -> {
