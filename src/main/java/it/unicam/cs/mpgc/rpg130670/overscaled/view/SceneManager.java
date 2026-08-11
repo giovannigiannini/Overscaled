@@ -40,6 +40,6 @@ public class SceneManager {
         gameScene.setOnKeyPressed(gameView::handleKeyPress);
 
         stage.setScene(gameScene);
-        stage.setTitle("OVERSCALED - Mappa della Giungla");
+        stage.setTitle("OVERSCALED - Sopravvivi");
     }
 }

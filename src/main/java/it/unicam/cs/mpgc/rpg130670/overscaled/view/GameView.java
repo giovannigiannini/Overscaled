@@ -1,6 +1,5 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
-import it.unicam.cs.mpgc.rpg130670.overscaled.view.SceneManager;
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapons.*;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
