@@ -1,12 +1,14 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies;
 
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.Stats;
+
 public class Wolf extends Enemy{
     public Wolf() {
-        super("Lupo", 400, 40);
+        super("Lupo", new Stats(500,40));
     }
 
     @Override
     public int calculateDamage(int turn) {
-        return getBaseDamage() + (turn * 10);
+        return getBaseStats().getDamage() + (turn * 10);
     }
 }

@@ -1,32 +1,12 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies;
 
-public abstract class Enemy {
-    private final String name;
-    private final int maxHp;
-    private int currentHp;
-    private final int baseDamage;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.Character;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.Stats;
 
-    public Enemy(String name, int maxHp, int baseDamage) {
-        this.name = name;
-        this.maxHp = maxHp;
-        this.currentHp = maxHp;
-        this.baseDamage = baseDamage;
+public abstract class Enemy extends Character {
+
+    public Enemy(String name, Stats baseStats) {
+        super(name, baseStats);
     }
-
-    public void takeDamage(int amount) {
-        this.currentHp = Math.max(0, this.currentHp - amount);
-    }
-
-    public boolean isAlive() {
-        return this.currentHp > 0;
-    }
-
-    public String getName() { return name; }
-    public int getMaxHp() { return maxHp; }
-    public int getCurrentHp() { return currentHp; }
-    public int getBaseDamage() { return baseDamage; }
-
-
     public abstract int calculateDamage(int turn);
-
 }
