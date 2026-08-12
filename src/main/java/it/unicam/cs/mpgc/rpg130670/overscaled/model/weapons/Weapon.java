@@ -1,4 +1,6 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.model.weapons;
+
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.Stats;
 /**
  * Classe astratta weapon che serve da struttura per le 3 armi attualmente disponibili nel gioco
  *
@@ -7,35 +9,19 @@ package it.unicam.cs.mpgc.rpg130670.overscaled.model.weapons;
 public abstract class Weapon {
 
     private final String name;
-    private final int baseDamage;
-    private final int baseMaxHp;
+    private final Stats baseStats;
     private final String description;
 
-    public Weapon(String name, int baseDamage, int baseMaxHp, String description) {
-        // Controllo attualmente opzionale perchè ci sono 3 weapon ben definite
-        if(name==null || name.isEmpty() || baseDamage<=0 || baseMaxHp<=0 || description==null) throw new NullPointerException();
+    public Weapon(String name, Stats baseStats, String description) {
         this.name = name;
-        this.baseDamage = baseDamage;
-        this.baseMaxHp = baseMaxHp;
+        this.baseStats = baseStats;
         this.description = description;
     }
 
-    public String getName() {
-        return name;
-    }
+    public abstract int calculateDamageWin(int turn);
+    public abstract int calculateHpWin(int victoriesCount);
 
-    public int getBaseDamage() {
-        return baseDamage;
-    }
-
-    public int getBaseMaxHp() {
-        return baseMaxHp;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-    // Metodi astratti da implementare obbligatoriamente nelle weapon specifiche
-    public abstract int calculateDamageWin(int turn); // Calcolo Damage incrementato dopo un turno vinto
-    public abstract int calculateMaxHpWin(int turn);// Calcolo HP incrementato dopo un turno vinto
+    public String getName() { return name; }
+    public Stats getBaseStats() { return baseStats; }
+    public String getDescription() { return description; }
 }
