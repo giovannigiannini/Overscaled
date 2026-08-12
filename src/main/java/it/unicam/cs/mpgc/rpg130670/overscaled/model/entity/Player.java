@@ -1,4 +1,24 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.model.entity;
 
-public class Player {
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapons.Weapon;
+
+public class Player extends Character{
+    private final Weapon weapon;
+    private int victories;
+
+    public Player(String name, Weapon weapon) {
+        super(name, weapon.getBaseStats());
+        this.weapon = weapon;
+        this.victories = 0;
+    }
+
+    public void onVictory() {
+        this.victories++;
+        int newMaxHp = weapon.calculateHpWin(this.victories);
+        int newDamage = weapon.calculateDamageWin(this.victories);
+        newStats(newMaxHp,newDamage);
+    }
+
+    public Weapon getWeapon() { return weapon; }
+    public int getVictories() { return victories; }
 }

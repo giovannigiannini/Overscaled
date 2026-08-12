@@ -29,8 +29,8 @@ public class SceneManager {
         System.out.println("Partita Avviata!");
         System.out.println("Giocatore: " + playerName);
         System.out.println("Arma Scelta: " + selectedWeapon.getName()
-                + " (DMG: " + selectedWeapon.getBaseDamage()
-                + ", HP: " + selectedWeapon.getBaseMaxHp() + ")");
+                + " (DMG: " + selectedWeapon.getBaseStats().getDamage() + ")"
+                + ", HP: " + selectedWeapon.getBaseStats().getHp() + ")");
 
         // Inizializza e mostra la schermata di gioco vera e propria
         GameView gameView = new GameView(this, playerName, selectedWeapon);

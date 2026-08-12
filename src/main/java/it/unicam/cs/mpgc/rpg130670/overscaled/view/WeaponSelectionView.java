@@ -53,7 +53,7 @@ public class WeaponSelectionView {
         nameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         nameLabel.setTextFill(Color.WHITE);
 
-        Label statsLabel = new Label("DMG: " + weapon.getBaseDamage() + "\nHP: " + weapon.getBaseMaxHp());
+        Label statsLabel = new Label("DMG: " + weapon.getBaseStats().getDamage() + "\nHP: " + weapon.getBaseStats().getHp());
         statsLabel.setFont(Font.font("Consolas", 14));
         statsLabel.setTextFill(Color.web("#2ecc71"));
         statsLabel.setStyle("-fx-text-alignment: center;");
