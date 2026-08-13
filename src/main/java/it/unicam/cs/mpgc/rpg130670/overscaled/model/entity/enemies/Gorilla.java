@@ -8,10 +8,10 @@ public class Gorilla extends Enemy{
     }
 
     @Override
-    public int calculateDamage(int turn) {
+    public void calculateDamage(int turn) {
         if (turn % 3 == 0) {
-            return getBaseStats().getDamage() * 3;
+            setCurrentDamage(getBaseStats().getDamage() * 3 + turn * 15);
         }
-        return getBaseStats().getDamage();
+        setCurrentDamage(getBaseStats().getDamage() + turn * 15);
     }
 }

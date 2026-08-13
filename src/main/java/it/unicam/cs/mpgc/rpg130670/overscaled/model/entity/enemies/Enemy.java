@@ -8,5 +8,5 @@ public abstract class Enemy extends Character {
     public Enemy(String name, Stats baseStats) {
         super(name, baseStats);
     }
-    public abstract int calculateDamage(int turn);
+    public abstract void calculateDamage(int turn);
 }

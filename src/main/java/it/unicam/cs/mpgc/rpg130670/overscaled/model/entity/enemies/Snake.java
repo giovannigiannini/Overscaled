@@ -8,7 +8,7 @@ public class Snake extends Enemy {
     }
 
     @Override
-    public int calculateDamage(int turn) {
-        return getBaseStats().getDamage() + turn*5;
+    public void calculateDamage(int turn) {
+        setCurrentDamage(getBaseStats().getDamage() + turn*5);
     }
 }

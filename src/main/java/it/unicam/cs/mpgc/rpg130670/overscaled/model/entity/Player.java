@@ -16,7 +16,8 @@ public class Player extends Character{
         this.victories++;
         int newMaxHp = weapon.calculateHpWin(this.victories);
         int newDamage = weapon.calculateDamageWin(this.victories);
-        newStats(newMaxHp,newDamage);
+        setCurrentHp(newMaxHp);
+        setCurrentDamage(newDamage);
     }
 
     public Weapon getWeapon() { return weapon; }

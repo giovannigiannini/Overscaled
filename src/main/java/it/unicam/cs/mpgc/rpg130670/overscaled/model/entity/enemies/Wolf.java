@@ -8,7 +8,7 @@ public class Wolf extends Enemy{
     }
 
     @Override
-    public int calculateDamage(int turn) {
-        return getBaseStats().getDamage() + (turn * 10);
+    public void calculateDamage(int turn) {
+        setCurrentDamage(getBaseStats().getDamage() + (turn * 10));
     }
 }
