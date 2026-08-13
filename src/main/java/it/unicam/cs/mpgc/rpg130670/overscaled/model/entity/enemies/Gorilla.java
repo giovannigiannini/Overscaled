@@ -2,16 +2,18 @@ package it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies;
 
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.Stats;
 
-public class Gorilla extends Enemy{
-    public Gorilla() {
-        super("Gorilla", new Stats(800,80));
+public class Gorilla extends Enemy {
+
+    public Gorilla(int victories) {
+        super("Gorilla", new Stats(450, 30), victories);
     }
 
     @Override
-    public void calculateDamage(int turn) {
+    public int calculateDamage(int turn) {
+        int currentDmg = getAttackStat() + (turn * 5);
         if (turn % 3 == 0) {
-            setCurrentDamage(getBaseStats().getDamage() * 3 + turn * 15);
+            return (int) (currentDmg * 1.8);
         }
-        setCurrentDamage(getBaseStats().getDamage() + turn * 15);
+        return currentDmg;
     }
 }

@@ -1,6 +1,8 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapons.*;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.Player;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies.Enemy;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -26,20 +28,28 @@ public class SceneManager {
     }
 
     public void startGame(String playerName, Weapon selectedWeapon) {
-        System.out.println("Partita Avviata!");
-        System.out.println("Giocatore: " + playerName);
-        System.out.println("Arma Scelta: " + selectedWeapon.getName()
-                + " (DMG: " + selectedWeapon.getBaseStats().getDamage() + ")"
-                + ", HP: " + selectedWeapon.getBaseStats().getHp() + ")");
+        // Crea l'istanza del giocatore con il nome e l'arma scelta
+        Player player = new Player(playerName, selectedWeapon);
 
-        // Inizializza e mostra la schermata di gioco vera e propria
-        GameView gameView = new GameView(this, playerName, selectedWeapon);
+        GameView gameView = new GameView(this, player);
         Scene gameScene = new Scene(gameView.getRoot(), 800, 800);
 
-        // Collega i controlli da tastiera per il movimento
+        // Collega la tastiera per il movimento
         gameScene.setOnKeyPressed(gameView::handleKeyPress);
 
         stage.setScene(gameScene);
-        stage.setTitle("OVERSCALED - Sopravvivi");
+        stage.setTitle("OVERSCALED - SOPRAVVIVI");
+    }
+    public void showBattleScreen(Player player, Enemy enemy, GameView gameView) {
+        BattleView battleView = new BattleView(this, player, enemy, gameView);
+        stage.setScene(new Scene(battleView.getRoot(), 800, 800));
+        stage.setTitle("OVERSCALED - Combattimento!");
+    }
+
+    public void returnToMap(GameView gameView) {
+        Scene gameScene = new Scene(gameView.getRoot(), 800, 800);
+        gameScene.setOnKeyPressed(gameView::handleKeyPress);
+        stage.setScene(gameScene);
+        stage.setTitle("OVERSCALED - Mappa della Giungla");
     }
 }

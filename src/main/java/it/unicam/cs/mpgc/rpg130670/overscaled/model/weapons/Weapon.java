@@ -18,8 +18,8 @@ public abstract class Weapon {
         this.description = description;
     }
 
-    public abstract int calculateDamageWin(int turn);
-    public abstract int calculateHpWin(int victoriesCount);
+    public abstract int calculateDamageWin(int victories);
+    public abstract int calculateHpWin(int victories);
 
     public String getName() { return name; }
     public Stats getBaseStats() { return baseStats; }

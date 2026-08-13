@@ -5,8 +5,10 @@ import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.Stats;
 
 public abstract class Enemy extends Character {
 
-    public Enemy(String name, Stats baseStats) {
-        super(name, baseStats);
+    public Enemy(String name, Stats baseStats, int victories) {
+        // I nemici guadagnano +100 HP e +15 Danno base per ogni vittoria del Player
+        super(name, new Stats(baseStats.hp() + (victories * 100), baseStats.damage() + (victories * 15)));
     }
-    public abstract void calculateDamage(int turn);
+
+    public abstract int calculateDamage(int turn);
 }
