@@ -9,7 +9,6 @@ import javafx.stage.Stage;
  * @author Giannini Giovanni
  */
 public class Launcher {
-
     // Classe interna statica che gestisce il ciclo di vita JavaFX
     public static class OverscaledApp extends Application {
         @Override
@@ -19,7 +18,6 @@ public class Launcher {
         }
     }
     public static void main(String[] args) {
-
         Application.launch(OverscaledApp.class, args);
     }
 }

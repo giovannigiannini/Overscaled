@@ -24,4 +24,12 @@ public abstract class Weapon {
     public String getName() { return name; }
     public Stats getBaseStats() { return baseStats; }
     public String getDescription() { return description; }
+    public String getIconPath() {
+        return "/images/" + switch (this) {
+            case Axe a -> "player_icon_axe.png";
+            case SpearAndShield sp -> "player_icon_ss.png";
+            case Sword s -> "player_icon_sword.png";
+            default -> "player_icon.png";
+        };
+    }
 }

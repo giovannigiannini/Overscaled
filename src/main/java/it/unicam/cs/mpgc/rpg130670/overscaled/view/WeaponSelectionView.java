@@ -6,6 +6,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -13,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import java.util.List;
+import java.util.Objects;
 
 public class WeaponSelectionView {
     private final VBox root;
@@ -50,6 +53,18 @@ public class WeaponSelectionView {
         nameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         nameLabel.setTextFill(Color.WHITE);
 
+        ImageView iconView = new ImageView();
+        try {
+            String path = weapon.getIconPath();
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(path)));
+            iconView.setImage(image);
+            iconView.setFitWidth(80);
+            iconView.setFitHeight(80);
+            iconView.setPreserveRatio(true);
+        } catch (Exception e) {
+            System.err.println("Impossibile caricare l'immagine per " + weapon.getName() + ": " + e.getMessage());
+        }
+
         Label statsLabel = new Label("DMG: " + weapon.getBaseStats().damage() + "\nHP: " + weapon.getBaseStats().hp());
         statsLabel.setFont(Font.font("Consolas", 14));
         statsLabel.setTextFill(Color.web("#2ecc71"));
@@ -67,7 +82,7 @@ public class WeaponSelectionView {
 
         selectButton.setOnAction(e -> sceneManager.startGame(playerName, weapon));
 
-        card.getChildren().addAll(nameLabel, statsLabel, descLabel, selectButton);
+        card.getChildren().addAll(nameLabel, iconView, statsLabel, descLabel, selectButton);
         return card;
     }
 
