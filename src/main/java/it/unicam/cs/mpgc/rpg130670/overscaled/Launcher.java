@@ -14,6 +14,7 @@ public class Launcher {
         @Override
         public void start(Stage primaryStage) {
             SceneManager sceneManager = new SceneManager(primaryStage);
+            primaryStage.setResizable(false);
             sceneManager.showWelcomeScreen();
         }
     }

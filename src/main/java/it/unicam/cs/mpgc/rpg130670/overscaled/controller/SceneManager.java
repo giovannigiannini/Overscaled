@@ -37,10 +37,11 @@ public class SceneManager {
         GameController gameController = new GameController(player, this);
         GameView gameView = new GameView(gameController);
 
-        Scene gameScene = new Scene(gameView.getRoot(), 800, 800);
+        Scene gameScene = new Scene(gameView.getRoot());
         gameScene.setOnKeyPressed(gameView::handleKeyPress);
         stage.setScene(gameScene);
         stage.setTitle("OVERSCALED - SOPRAVVIVI");
+        stage.sizeToScene();
     }
 
     public void showBattleScreen(Player player, Enemy enemy, GameController gameController) {
@@ -51,9 +52,11 @@ public class SceneManager {
     }
 
     public void returnToMap(GameView gameView) {
-        Scene gameScene = new Scene(gameView.getRoot(), 800, 800);
+        gameView.updateStats();
+        Scene gameScene = new Scene(gameView.getRoot());
         gameScene.setOnKeyPressed(gameView::handleKeyPress);
         stage.setScene(gameScene);
         stage.setTitle("OVERSCALED - SOPRAVVIVI");
+        stage.sizeToScene();
     }
 }
