@@ -1,13 +1,18 @@
-package it.unicam.cs.mpgc.rpg130670.overscaled.view;
+package it.unicam.cs.mpgc.rpg130670.overscaled.controller;
 
-import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapons.*;
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.Player;
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies.Enemy;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapon.Weapon;
+import it.unicam.cs.mpgc.rpg130670.overscaled.view.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Classe per la gestione della navigazione e transizione tra le diverse schermate.
+ *
+ * @author Giannini Giovanni
+ */
 public class SceneManager {
-
     private final Stage stage;
 
     public SceneManager(Stage stage) {
@@ -24,32 +29,31 @@ public class SceneManager {
     public void showWeaponSelectionScreen(String playerName) {
         WeaponSelectionView selectionView = new WeaponSelectionView(this, playerName);
         stage.setScene(new Scene(selectionView.getRoot(), 800, 600));
-        stage.setTitle("OVERSCALED - Selezione Campione");
+        stage.setTitle("OVERSCALED - Selezione Arma");
     }
 
     public void startGame(String playerName, Weapon selectedWeapon) {
-        // Crea l'istanza del giocatore con il nome e l'arma scelta
         Player player = new Player(playerName, selectedWeapon);
+        GameController gameController = new GameController(player, this);
+        GameView gameView = new GameView(gameController);
 
-        GameView gameView = new GameView(this, player);
         Scene gameScene = new Scene(gameView.getRoot(), 800, 800);
-
-        // Collega la tastiera per il movimento
         gameScene.setOnKeyPressed(gameView::handleKeyPress);
-
         stage.setScene(gameScene);
         stage.setTitle("OVERSCALED - SOPRAVVIVI");
     }
-    public void showBattleScreen(Player player, Enemy enemy, GameView gameView) {
-        BattleView battleView = new BattleView(this, player, enemy, gameView);
+
+    public void showBattleScreen(Player player, Enemy enemy, GameController gameController) {
+        BattleController battleController = new BattleController(player, enemy, this, gameController);
+        BattleView battleView = new BattleView(battleController);
         stage.setScene(new Scene(battleView.getRoot(), 800, 800));
-        stage.setTitle("OVERSCALED - Combattimento!");
+        stage.setTitle("OVERSCALED - Combattimento");
     }
 
     public void returnToMap(GameView gameView) {
         Scene gameScene = new Scene(gameView.getRoot(), 800, 800);
         gameScene.setOnKeyPressed(gameView::handleKeyPress);
         stage.setScene(gameScene);
-        stage.setTitle("OVERSCALED - Mappa della Giungla");
+        stage.setTitle("OVERSCALED - SOPRAVVIVI");
     }
 }

@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
+import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SceneManager;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -11,7 +12,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class WelcomeView {
-
     private final VBox root;
 
     public WelcomeView(SceneManager sceneManager) {
@@ -48,17 +48,15 @@ public class WelcomeView {
         // Azione al click del pulsante
         startButton.setOnAction(e -> {
             String inputName = nameField.getText().trim();
-            if (inputName.isEmpty()) {
-                errorLabel.setText("Inserisci un nome valido per proseguire!");
+            if (inputName.length() < 2) {
+                errorLabel.setText("Inserisci un nome valido per proseguire! (2+ caratteri)");
             } else {
                 sceneManager.showWeaponSelectionScreen(inputName);
             }
         });
-
         // Aggiunta degli elementi al layout
         root.getChildren().addAll(titleLabel, subtitleLabel, nameField, errorLabel, startButton);
     }
-
     public Parent getRoot() {
         return root;
     }

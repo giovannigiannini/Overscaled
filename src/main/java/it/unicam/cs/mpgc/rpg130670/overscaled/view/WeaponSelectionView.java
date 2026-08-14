@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
-import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapons.*;
+import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SceneManager;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapon.*;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -14,7 +15,6 @@ import javafx.scene.text.FontWeight;
 import java.util.List;
 
 public class WeaponSelectionView {
-
     private final VBox root;
 
     public WeaponSelectionView(SceneManager sceneManager, String playerName) {
@@ -25,7 +25,6 @@ public class WeaponSelectionView {
         Label titleLabel = new Label("Scegli la tua arma, " + playerName + "!");
         titleLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 32));
         titleLabel.setTextFill(Color.web("#f1c40f"));
-
         HBox cardsContainer = new HBox(20);
         cardsContainer.setAlignment(Pos.CENTER);
 
@@ -35,12 +34,10 @@ public class WeaponSelectionView {
                 new Axe(),
                 new SpearAndShield()
         );
-
         for (Weapon weapon : availableWeapons) {
             VBox card = createWeaponCard(weapon, sceneManager, playerName);
             cardsContainer.getChildren().add(card);
         }
-
         root.getChildren().addAll(titleLabel, cardsContainer);
     }
 
@@ -53,7 +50,7 @@ public class WeaponSelectionView {
         nameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         nameLabel.setTextFill(Color.WHITE);
 
-        Label statsLabel = new Label("DMG: " + weapon.getBaseStats().getDamage() + "\nHP: " + weapon.getBaseStats().getHp());
+        Label statsLabel = new Label("DMG: " + weapon.getBaseStats().damage() + "\nHP: " + weapon.getBaseStats().hp());
         statsLabel.setFont(Font.font("Consolas", 14));
         statsLabel.setTextFill(Color.web("#2ecc71"));
         statsLabel.setStyle("-fx-text-alignment: center;");
