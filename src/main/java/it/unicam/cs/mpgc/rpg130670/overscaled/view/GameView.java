@@ -1,6 +1,6 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
-import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapons.*;
+import it.unicam.cs.mpgc.rpg130670.overscaled.controller.GameController;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,60 +9,42 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class GameView {
-
+    private final GameController controller;
     private final VBox root;
     private final Canvas canvas;
-    private final String playerName;
-    private final Weapon weapon;
+    private final int tileSize = 40;
 
-    // Posizione di prova del giocatore sulla griglia
-    private int playerX = 4;
-    private int playerY = 4;
-    private final int tileSize = 40; // Pixel di ciascuna casella
-
-    public GameView(SceneManager sceneManager, String playerName, Weapon weapon) {
-        this.playerName = playerName;
-        this.weapon = weapon;
-
+    public GameView(GameController controller) {
+        this.controller = controller;
         root = new VBox();
         canvas = new Canvas(800, 800);
         root.getChildren().add(canvas);
-
         drawMap();
     }
-
     public void drawMap() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        // Disegna uno sfondo semplice per la mappa (es. erba verde)
+        // Disegna Sfondo Erba
         gc.setFill(Color.web("#27ae60"));
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        // Disegna una griglia di pixel/caselle
+        // Disegna Griglia
         gc.setStroke(Color.web("#1e8449"));
         for (int i = 0; i < 800; i += tileSize) {
             for (int j = 0; j < 800; j += tileSize) {
                 gc.strokeRect(i, j, tileSize, tileSize);
             }
         }
-
-        // Disegna il giocatore come un quadrato colorato (temporaneo giusto per test)
+        // Disegna Giocatore
         gc.setFill(Color.web("#f39c12"));
-        gc.fillRect(playerX * tileSize, playerY * tileSize, tileSize, tileSize);
+        gc.fillRect(controller.getPlayerX() * tileSize, controller.getPlayerY() * tileSize, tileSize, tileSize);
     }
-
     public void handleKeyPress(KeyEvent event) {
         switch (event.getCode()) {
-            case W -> playerY = Math.max(0, playerY - 1);
-            case S -> playerY = Math.min(19, playerY + 1);
-            case A -> playerX = Math.max(0, playerX - 1);
-            case D -> playerX = Math.min(19, playerX + 1);
-            default -> {}
+            case W, UP -> controller.movePlayer(0, -1);
+            case S, DOWN -> controller.movePlayer(0, 1);
+            case A, LEFT -> controller.movePlayer(-1, 0);
+            case D, RIGHT -> controller.movePlayer(1, 0);
         }
         drawMap();
     }
-
-    public Parent getRoot() {
-        return root;
-    }
+    public Parent getRoot() { return root; }
 }
