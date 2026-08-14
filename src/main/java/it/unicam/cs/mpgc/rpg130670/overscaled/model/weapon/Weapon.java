@@ -1,6 +1,6 @@
-package it.unicam.cs.mpgc.rpg130670.overscaled.model.weapons;
+package it.unicam.cs.mpgc.rpg130670.overscaled.model.weapon;
 
-import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.Stats;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.Stats;
 /**
  * Classe astratta weapon che serve da struttura per le 3 armi attualmente disponibili nel gioco
  *

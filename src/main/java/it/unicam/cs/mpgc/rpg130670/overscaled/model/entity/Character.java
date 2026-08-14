@@ -1,5 +1,7 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.model.entity;
 
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.Stats;
+
 public abstract class Character {
     private final String name;
     private final Stats baseStats;
@@ -23,14 +25,13 @@ public abstract class Character {
         return this.currentHp > 0;
     }
 
-    // --- GETTERS ---
     public String getName() { return name; }
     public Stats getBaseStats() { return baseStats; }
     public int getMaxHp() { return maxHp; }
     public int getCurrentHp() { return currentHp; }
     public int getAttackStat() { return attackStat; }
 
-    // --- SETTERS PROTETTI (Per lo scaling del Player) ---
+    // SETTERS PROTETTI (Per lo scaling del Player)
     protected void setMaxHp(int maxHp) { this.maxHp = maxHp; }
     protected void setCurrentHp(int hp) { this.currentHp = hp; }
     protected void setAttackStat(int damage) { this.attackStat = damage; }

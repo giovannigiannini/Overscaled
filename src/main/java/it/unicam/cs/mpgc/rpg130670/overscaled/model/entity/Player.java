@@ -1,6 +1,6 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.model.entity;
 
-import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapons.Weapon;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapon.Weapon;
 
 public class Player extends Character {
     private final Weapon weapon;
@@ -15,15 +15,15 @@ public class Player extends Character {
     public void onVictory() {
         this.victories++;
 
-        // 1. Calcola i nuovi valori scalati tramite l'arma
+        // Calcola i nuovi valori scalati tramite l'arma
         int newMaxHp = weapon.calculateHpWin(this.victories);
         int newDamage = weapon.calculateDamageWin(this.victories);
 
-        // 2. Aggiorna i dati nel Character (Max HP e Danno)
+        // Aggiorna i dati nel Character (Max HP e Danno)
         setMaxHp(newMaxHp);
         setAttackStat(newDamage);
 
-        // 3. Ripristina completamente la vita del giocatore per il prossimo scontro
+        // Ripristina completamente la vita del giocatore per il prossimo scontro
         setCurrentHp(newMaxHp);
     }
 
