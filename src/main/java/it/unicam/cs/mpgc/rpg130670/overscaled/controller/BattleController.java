@@ -6,11 +6,11 @@ import it.unicam.cs.mpgc.rpg130670.overscaled.view.GameView;
 
 /**
  * Questa classe gestisce la logica di controllo durante una fase di combattimento a turni
- * tra {@link Player} e {@link Enemy}.
+ * tra Player e Enemy.
  * Le responsabilità di questa classe sono :
  * 1.Alternare i turni di attacco e quindi calcolare i rispettivi danni subiti
- * 2.Controllare quando {@link Player} o {@link Enemy} hanno 0 HP quindi sono stati sconfitti
- * 3.Transizione di ritorno alla mappa in caso di vittoria del {@link Player}
+ * 2.Controllare quando Player o Enemy hanno 0 HP quindi sono stati sconfitti
+ * 3.Transizione di ritorno alla mappa in caso di vittoria del Player
  *
  * @author Giannini Giovanni
  */
@@ -34,14 +34,13 @@ public class BattleController {
         // Danno del Player
         int playerDamage = player.getAttackStat();
         enemy.takeDamage(playerDamage);
-        log.append("Turno ").append(turn).append(": ")
-                .append(player.getName()).append(" infligge ").append(playerDamage).append(" danni con ")
-                .append(player.getWeapon().getName()).append("!\n");
+        log.append(String.format("Turno %d: %s infligge %d danni con %s!\n",
+                turn, player.getName(), playerDamage, player.getWeapon().getName()));
         if (!enemy.isAlive()) {
             player.onVictory();
-            log.append("\nHAI VINTO LO SCONTRO!\n");
-            log.append("L'arma scala! Nuovi HP: ").append(player.getMaxHp())
-                    .append(" | Nuovo Danno: ").append(player.getAttackStat()).append("\n");
+            log.append("\nHAI VINTO LO SCONTRO!\n")
+                    .append(String.format("L'arma scala! Nuovi HP: %d | Nuovo Danno: %d\n",
+                            player.getMaxHp(), player.getAttackStat()));
             return log.toString();
         }
         // Danno del Nemico
@@ -64,4 +63,5 @@ public class BattleController {
     public Player getPlayer() { return player; }
     public Enemy getEnemy() { return enemy; }
     public int getTurn() { return turn; }
+    public SceneManager getSceneManager() { return sceneManager; }
 }

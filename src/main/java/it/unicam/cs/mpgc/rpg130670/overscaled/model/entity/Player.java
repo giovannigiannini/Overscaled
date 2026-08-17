@@ -18,11 +18,8 @@ public class Player extends Character {
         // Calcola i nuovi valori scalati tramite l'arma
         int newMaxHp = weapon.calculateHpWin(this.victories);
         int newDamage = weapon.calculateDamageWin(this.victories);
-
-        // Aggiorna i dati nel Character (Max HP e Danno)
         setMaxHp(newMaxHp);
         setAttackStat(newDamage);
-
         // Ripristina completamente la vita del giocatore per il prossimo scontro
         setCurrentHp(newMaxHp);
     }

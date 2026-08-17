@@ -26,7 +26,6 @@ public abstract class Character {
     }
 
     public String getName() { return name; }
-    public Stats getBaseStats() { return baseStats; }
     public int getMaxHp() { return maxHp; }
     public int getCurrentHp() { return currentHp; }
     public int getAttackStat() { return attackStat; }
