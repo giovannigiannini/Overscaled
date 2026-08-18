@@ -1,7 +1,6 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
 import it.unicam.cs.mpgc.rpg130670.overscaled.controller.BattleController;
-import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SceneManager;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -11,11 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.application.Platform;
-import java.util.Optional;
 
 public class BattleView {
     private final BattleController controller;
@@ -66,15 +60,14 @@ public class BattleView {
     private void handleAttack() {
         String turnLog = controller.executeTurn();
         logArea.appendText(turnLog);
+        updateUi();
         if (!controller.getEnemy().isAlive()) {
             attackButton.setText("TORNA ALLA MAPPA");
             attackButton.setOnAction(e -> controller.returnToMap());
         } else if (!controller.getPlayer().isAlive()) {
-            updateUi(); // Aggiunta qui perchè altrimenti bug visivo, il player veniva sconfitto prima dell'attacco finale
-            showGameOverDialog(controller.getSceneManager());
-            return;
+            int victories = controller.getPlayer().getVictories();
+            controller.getSceneManager().showEndScreen(victories);
         }
-        updateUi();
     }
 
     private void updateUi() {
@@ -89,25 +82,6 @@ public class BattleView {
             attackButton.setText("ATTACCA (Turno " + controller.getTurn() + ")");
         }
     }
-    public void showGameOverDialog(SceneManager sceneManager) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("GAME OVER");
-        alert.setHeaderText("Sei stato sconfitto!");
-        alert.setContentText("Cosa vuoi fare adesso?");
 
-        ButtonType btnNewGame = new ButtonType("Nuova Partita", ButtonBar.ButtonData.OK_DONE);
-        ButtonType btnExit = new ButtonType("Esci dal Gioco", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(btnNewGame, btnExit);
-
-        // Mostra la finestra di dialogo e attende la scelta dell'utente
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == btnNewGame) {
-            sceneManager.showWelcomeScreen();
-        } else {
-            Platform.exit();
-            System.exit(0);
-        }
-    }
     public Parent getRoot() { return root; }
 }

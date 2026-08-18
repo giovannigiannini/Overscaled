@@ -50,7 +50,12 @@ public class SceneManager {
         stage.setScene(new Scene(battleView.getRoot(), 800, 800));
         stage.setTitle("OVERSCALED - Combattimento");
     }
-
+    public void showEndScreen(int victories) {
+        EndGameView endGameView = new EndGameView(this, victories);
+        Scene endScene = new Scene(endGameView.getRoot(), 800, 600);
+        stage.setScene(endScene);
+        stage.setTitle("OVERSCALED - GAME OVER");
+    }
     public void returnToMap(GameView gameView) {
         gameView.updateStats();
         Scene gameScene = new Scene(gameView.getRoot());
