@@ -4,15 +4,15 @@ import it.unicam.cs.mpgc.rpg130670.overscaled.model.Stats;
 
 public class Sword extends Weapon {
     public Sword() {
-        super("Spada", new Stats(700, 100), "+10 danno ogni turno vinto \n+20 vita ogni turno vinto");
+        super("Spada", new Stats(700, 120), "+25 danno ogni vittoria \n+40 vita ogni vittoria");
     }
     @Override
     public int calculateDamageWin(int victories) {
-        return getBaseStats().damage() + victories * 10;
+        return getBaseStats().damage() + victories * 25;
     }
     @Override
     public int calculateHpWin(int victories) {
-        return getBaseStats().hp() + victories * 20;
+        return getBaseStats().hp() + victories * 40;
     }
 
 }

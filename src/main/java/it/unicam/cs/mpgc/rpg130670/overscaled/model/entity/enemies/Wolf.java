@@ -8,7 +8,7 @@ public class Wolf extends Enemy {
     }
     @Override
     public int calculateDamage(int turn) {
-        int currentDmg = getAttackStat() + (turn * 5);
+        int currentDmg = getAttackStat() + (turn * 25);
         if (turn % 2 == 0) {
             return (int) (currentDmg * 1.5);
         }

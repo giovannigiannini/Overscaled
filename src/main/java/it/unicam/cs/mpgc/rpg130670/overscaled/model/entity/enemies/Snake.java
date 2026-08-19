@@ -8,6 +8,7 @@ public class Snake extends Enemy {
     }
     @Override
     public int calculateDamage(int turn) {
-        return getAttackStat() + (turn * 12);
+        if (turn > 4 ) return getAttackStat() + (turn * 30);
+        return getAttackStat() + (turn * 15);
     }
 }
