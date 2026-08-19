@@ -36,17 +36,13 @@ public class BattleController {
         enemy.takeDamage(playerDamage);
         log.append(String.format("Turno %d: %s infligge %d danni con %s!\n",
                 turn, player.getName(), playerDamage, player.getWeapon().getName()));
-        if (!enemy.isAlive()) {
-            player.onVictory();
-            log.append("\nHAI VINTO LO SCONTRO!\n")
-                    .append(String.format("L'arma scala! Nuovi HP: %d | Nuovo Danno: %d\n",
-                            player.getMaxHp(), player.getAttackStat()));
-            return log.toString();
-        }
+        // Controllo vittoria
+        if (!enemy.isAlive()){ return playerVictory(log);}
         // Danno del Nemico
         int enemyDamage = enemy.calculateDamage(turn);
         player.takeDamage(enemyDamage);
         log.append(enemy.getName()).append(" risponde infliggendo ").append(enemyDamage).append(" danni!\n\n");
+        // Controllo sconfitta
         if (!player.isAlive()) {
             log.append("\nHAI PERSO! GAME OVER\n");
             return log.toString();
@@ -58,6 +54,28 @@ public class BattleController {
     public void returnToMap() {
         GameView gameView = new GameView(gameController);
         sceneManager.returnToMap(gameView);
+    }
+
+    /**
+     * Metodo per calcolare la vittoria del player e tutto lo scaling
+     * @param log
+     * @return log
+     */
+
+    private String playerVictory(StringBuilder log) {
+        // Salva le statistiche precedenti per calcolare il bonus esatto
+        int oldMaxHp = player.getMaxHp();
+        int oldDamage = player.getAttackStat();
+        // Applica lo scaling sul Player
+        player.onVictory(enemy);
+        int hpGained = player.getMaxHp() - oldMaxHp;
+        int damageGained = player.getAttackStat() - oldDamage;
+        log.append("\nHAI VINTO LO SCONTRO!\n")
+                .append(String.format("Sconfitto %s!\n", enemy.getName()))
+                .append(String.format("Bonus ottenuto: +%d HP | +%d Danno\n", hpGained, damageGained))
+                .append(String.format("Statistiche attuali -> HP: %d | Danno: %d\n", player.getMaxHp(), player.getAttackStat()));
+
+        return log.toString();
     }
 
     public Player getPlayer() { return player; }

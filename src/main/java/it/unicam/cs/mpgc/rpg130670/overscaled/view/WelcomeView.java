@@ -25,13 +25,13 @@ public class WelcomeView {
         titleLabel.setTextFill(Color.web("#f1c40f"));
 
         // Sottotitolo
-        Label subtitleLabel = new Label("Inserisci il tuo nome per iniziare l'avventura");
+        Label subtitleLabel = new Label("Inserisci il tuo nome per iniziare");
         subtitleLabel.setFont(Font.font("Arial", 16));
         subtitleLabel.setTextFill(Color.web("#ecf0f1"));
 
         // Campo di testo per il nome
         TextField nameField = new TextField();
-        nameField.setPromptText("Nome Eroe...");
+        nameField.setPromptText("Nome Giocatore...");
         nameField.setMaxWidth(250);
         nameField.setStyle("-fx-font-size: 14px; -fx-padding: 8px;");
 

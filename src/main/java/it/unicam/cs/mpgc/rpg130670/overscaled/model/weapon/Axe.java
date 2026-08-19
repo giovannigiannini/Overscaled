@@ -3,7 +3,7 @@ import it.unicam.cs.mpgc.rpg130670.overscaled.model.Stats;
 
 public class Axe extends Weapon {
     public Axe() {
-        super("Ascia",new Stats(500,150),"+20 danno ogni turno \n+10 vita ogni turno");
+        super("Ascia",new Stats(500,150),"+20 danno ogni turno \n+5 vita ogni turno");
     }
     @Override
     public int calculateDamageWin(int victories) {
@@ -11,6 +11,6 @@ public class Axe extends Weapon {
     }
     @Override
     public int calculateHpWin(int victories) {
-        return getBaseStats().hp() + victories * 10;
+        return getBaseStats().hp() + victories * 5;
     }
 }
