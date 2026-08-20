@@ -1,6 +1,9 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
+import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SaveManager;
 import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SceneManager;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.PlayerData;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.Player;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,10 +16,17 @@ import javafx.scene.text.FontWeight;
 public class EndGameView {
     private final VBox root;
 
-    public EndGameView(SceneManager sceneManager, int finalVictories) {
+    public EndGameView(SceneManager sceneManager, Player player) {
         root = new VBox(20);
         root.setStyle(UIStyle.MAIN_CONTAINER + " -fx-padding: 40;");
         root.setAlignment(Pos.CENTER);
+
+        PlayerData data = new PlayerData(
+                player.getName(),
+                player.getWeapon().getName(),
+                player.getVictories()
+        );
+        SaveManager.savePlayer(data);
 
         Label titleLabel = new Label("GAME OVER");
         titleLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 48));
@@ -26,7 +36,7 @@ public class EndGameView {
         subTitleLabel.setFont(Font.font("Consolas", 20));
         subTitleLabel.setTextFill(Color.web(UIStyle.MUTED_TEXT));
 
-        Label statsLabel = new Label("Nemici sconfitti: " + finalVictories);
+        Label statsLabel = new Label("Nemici sconfitti: " + player.getVictories());
         statsLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 22));
         statsLabel.setTextFill(Color.web(UIStyle.YELLOW_TITLE));
 
