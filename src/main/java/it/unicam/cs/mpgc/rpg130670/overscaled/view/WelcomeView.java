@@ -17,46 +17,40 @@ public class WelcomeView {
     public WelcomeView(SceneManager sceneManager) {
         root = new VBox(20);
         root.setAlignment(Pos.CENTER);
-        root.setStyle("-fx-background-color: #1a1a1a;");
+        root.setStyle(UIStyle.MAIN_CONTAINER);
 
-        // Titolo del gioco
         Label titleLabel = new Label("OVERSCALED");
         titleLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 48));
-        titleLabel.setTextFill(Color.web("#f1c40f"));
+        titleLabel.setTextFill(Color.web(UIStyle.YELLOW_TITLE));
 
-        // Sottotitolo
         Label subtitleLabel = new Label("Inserisci il tuo nome per iniziare");
-        subtitleLabel.setFont(Font.font("Arial", 16));
-        subtitleLabel.setTextFill(Color.web("#ecf0f1"));
+        subtitleLabel.setFont(Font.font("Consolas", FontWeight.NORMAL, 16));
+        subtitleLabel.setTextFill(Color.web(UIStyle.WHITE_TEXT));
 
-        // Campo di testo per il nome
         TextField nameField = new TextField();
         nameField.setPromptText("Nome Giocatore...");
         nameField.setMaxWidth(250);
-        nameField.setStyle("-fx-font-size: 14px; -fx-padding: 8px;");
+        nameField.setStyle(UIStyle.TEXT_FIELD);
 
-        // Messaggio di errore se il nome è vuoto
         Label errorLabel = new Label("");
-        errorLabel.setTextFill(Color.RED);
-        errorLabel.setFont(Font.font("Arial", 12));
+        errorLabel.setTextFill(Color.web("#E74C3C"));
+        errorLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 12));
 
-        // Pulsante Inizia
-        Button startButton = new Button("INIZIA");
-        startButton.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        startButton.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-padding: 10 25; -fx-cursor: hand;");
+        Button startButton = new Button("INIZIA PARTITA");
+        startButton.setStyle(UIStyle.BUTTON_GREEN);
 
-        // Azione al click del pulsante
         startButton.setOnAction(e -> {
             String inputName = nameField.getText().trim();
             if (inputName.length() < 2) {
-                errorLabel.setText("Inserisci un nome valido per proseguire! (2+ caratteri)");
+                errorLabel.setText("Inserisci un nome valido! (2+ caratteri)");
             } else {
                 sceneManager.showWeaponSelectionScreen(inputName);
             }
         });
-        // Aggiunta degli elementi al layout
+
         root.getChildren().addAll(titleLabel, subtitleLabel, nameField, errorLabel, startButton);
     }
+
     public Parent getRoot() {
         return root;
     }

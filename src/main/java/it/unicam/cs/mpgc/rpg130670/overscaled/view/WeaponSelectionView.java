@@ -23,35 +23,37 @@ public class WeaponSelectionView {
     public WeaponSelectionView(SceneManager sceneManager, String playerName) {
         root = new VBox(30);
         root.setAlignment(Pos.CENTER);
-        root.setStyle("-fx-background-color: #121212; -fx-padding: 40;");
+        root.setStyle(UIStyle.MAIN_CONTAINER);
 
         Label titleLabel = new Label("Scegli la tua arma, " + playerName + "!");
-        titleLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 32));
-        titleLabel.setTextFill(Color.web("#f1c40f"));
+        titleLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 28));
+        titleLabel.setTextFill(Color.web(UIStyle.YELLOW_TITLE));
+
         HBox cardsContainer = new HBox(20);
         cardsContainer.setAlignment(Pos.CENTER);
 
-        // Lista delle istanze delle armi disponibili
         List<Weapon> availableWeapons = List.of(
                 new Sword(),
                 new Axe(),
                 new SpearAndShield()
         );
+
         for (Weapon weapon : availableWeapons) {
             VBox card = createWeaponCard(weapon, sceneManager, playerName);
             cardsContainer.getChildren().add(card);
         }
+
         root.getChildren().addAll(titleLabel, cardsContainer);
     }
 
     private VBox createWeaponCard(Weapon weapon, SceneManager sceneManager, String playerName) {
         VBox card = new VBox(15);
         card.setAlignment(Pos.CENTER);
-        card.setStyle("-fx-background-color: #2c3e50; -fx-padding: 20; -fx-background-radius: 10; -fx-min-width: 200;");
+        card.setStyle(UIStyle.CARD_PANEL);
 
         Label nameLabel = new Label(weapon.getName());
-        nameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        nameLabel.setTextFill(Color.WHITE);
+        nameLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 20));
+        nameLabel.setTextFill(Color.web(UIStyle.WHITE_TEXT));
 
         ImageView iconView = new ImageView();
         try {
@@ -66,20 +68,19 @@ public class WeaponSelectionView {
         }
 
         Label statsLabel = new Label("DMG: " + weapon.getBaseStats().damage() + "\nHP: " + weapon.getBaseStats().hp());
-        statsLabel.setFont(Font.font("Consolas", 14));
-        statsLabel.setTextFill(Color.web("#2ecc71"));
+        statsLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 14));
+        statsLabel.setTextFill(Color.web(UIStyle.GREEN_ACCENT));
         statsLabel.setStyle("-fx-text-alignment: center;");
 
         Label descLabel = new Label(weapon.getDescription());
-        descLabel.setFont(Font.font("Arial", 11));
-        descLabel.setTextFill(Color.LIGHTGRAY);
+        descLabel.setFont(Font.font("Consolas", 11));
+        descLabel.setTextFill(Color.web(UIStyle.MUTED_TEXT));
         descLabel.setWrapText(true);
         descLabel.setMaxWidth(180);
+        descLabel.setStyle("-fx-text-alignment: center;");
 
         Button selectButton = new Button("SELEZIONA");
-        selectButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        selectButton.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-cursor: hand;");
-
+        selectButton.setStyle(UIStyle.BUTTON_GREEN);
         selectButton.setOnAction(e -> sceneManager.startGame(playerName, weapon));
 
         card.getChildren().addAll(nameLabel, iconView, statsLabel, descLabel, selectButton);

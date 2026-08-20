@@ -15,30 +15,25 @@ public class EndGameView {
 
     public EndGameView(SceneManager sceneManager, int finalVictories) {
         root = new VBox(20);
-        root.setStyle("-fx-background-color: #121212; -fx-padding: 40;");
+        root.setStyle(UIStyle.MAIN_CONTAINER + " -fx-padding: 40;");
         root.setAlignment(Pos.CENTER);
 
-        // Titolo Game Over
         Label titleLabel = new Label("GAME OVER");
         titleLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 48));
         titleLabel.setTextFill(Color.web("#e74c3c"));
 
-        // Sottotitolo
         Label subTitleLabel = new Label("Sei stato sconfitto in battaglia...");
         subTitleLabel.setFont(Font.font("Consolas", 20));
-        subTitleLabel.setTextFill(Color.web("#cccccc"));
+        subTitleLabel.setTextFill(Color.web(UIStyle.MUTED_TEXT));
 
-        // Statistiche finali
         Label statsLabel = new Label("Nemici sconfitti: " + finalVictories);
         statsLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 22));
-        statsLabel.setTextFill(Color.web("#f1c40f")); // Giallo/Oro
+        statsLabel.setTextFill(Color.web(UIStyle.YELLOW_TITLE));
 
-        // Pulsante Nuova Partita
         Button btnNewGame = new Button("NUOVA PARTITA");
-        styleButton(btnNewGame, "#27ae60");
+        styleButton(btnNewGame, UIStyle.GREEN_ACCENT);
         btnNewGame.setOnAction(e -> sceneManager.showWelcomeScreen());
 
-        // Pulsante Esci
         Button btnExit = new Button("ESCI DAL GIOCO");
         styleButton(btnExit, "#c0392b");
         btnExit.setOnAction(e -> {

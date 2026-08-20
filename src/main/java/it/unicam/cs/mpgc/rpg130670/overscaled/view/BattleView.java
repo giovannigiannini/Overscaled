@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class BattleView {
     private final BattleController controller;
@@ -25,32 +26,52 @@ public class BattleView {
 
         root = new VBox(20);
         root.setAlignment(Pos.CENTER);
-        root.setStyle("-fx-background-color: #1a1a1a; -fx-padding: 30;");
+        root.setStyle("-fx-background-color: #141414; -fx-padding: 30;");
 
         Label title = new Label("COMBATTIMENTO!");
-        title.setFont(Font.font("Consolas", 28));
-        title.setTextFill(Color.RED);
+        title.setFont(Font.font("Consolas", FontWeight.BOLD, 32));
+        title.setTextFill(Color.web("#E74C3C"));
 
-        HBox statsBox = new HBox(50);
+        HBox statsBox = new HBox(60);
         statsBox.setAlignment(Pos.CENTER);
 
         playerHpLabel = new Label();
-        playerHpLabel.setTextFill(Color.LIGHTGREEN);
-        playerHpLabel.setFont(Font.font(16));
+        playerHpLabel.setTextFill(Color.web("#2ECC71"));
+        playerHpLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 15));
 
         enemyHpLabel = new Label();
-        enemyHpLabel.setTextFill(Color.ORANGE);
-        enemyHpLabel.setFont(Font.font(16));
+        enemyHpLabel.setTextFill(Color.web("#F1C40F"));
+        enemyHpLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 15));
 
         statsBox.getChildren().addAll(playerHpLabel, enemyHpLabel);
 
         logArea = new TextArea("Un " + controller.getEnemy().getName() + " selvatico appare!\n");
         logArea.setEditable(false);
-        logArea.setMaxWidth(500);
+        logArea.setWrapText(true);
+        logArea.setMaxWidth(520);
         logArea.setMaxHeight(200);
 
+        logArea.setStyle(
+                "-fx-control-inner-background: #2B3E50;" +
+                        "-fx-text-fill: #ECEFF4;" +
+                        "-fx-font-family: 'Consolas', monospace;" +
+                        "-fx-font-size: 13px;" +
+                        "-fx-border-color: #384E63;" +
+                        "-fx-border-width: 1.5px;" +
+                        "-fx-border-radius: 4px;" +
+                        "-fx-background-radius: 4px;"
+        );
+
         attackButton = new Button();
-        attackButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;");
+        attackButton.setFont(Font.font("Consolas", FontWeight.BOLD, 14));
+        attackButton.setStyle(
+                "-fx-background-color: #E74C3C;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-padding: 10 25;" +
+                        "-fx-background-radius: 4px;" +
+                        "-fx-cursor: hand;"
+        );
+
         attackButton.setOnAction(e -> handleAttack());
 
         root.getChildren().addAll(title, statsBox, logArea, attackButton);
@@ -63,6 +84,13 @@ public class BattleView {
         updateUi();
         if (!controller.getEnemy().isAlive()) {
             attackButton.setText("TORNA ALLA MAPPA");
+            attackButton.setStyle(
+                    "-fx-background-color: #2ECC71;" +
+                            "-fx-text-fill: white;" +
+                            "-fx-padding: 10 25;" +
+                            "-fx-background-radius: 4px;" +
+                            "-fx-cursor: hand;"
+            );
             attackButton.setOnAction(e -> controller.returnToMap());
         } else if (!controller.getPlayer().isAlive()) {
             int victories = controller.getPlayer().getVictories();
@@ -71,13 +99,13 @@ public class BattleView {
     }
 
     private void updateUi() {
-        // Mostra gli HP correnti rispetto agli HP MASSIMI scalati + il danno di attacco attuale
         playerHpLabel.setText(controller.getPlayer().getName() +
                 "\nHP: " + controller.getPlayer().getCurrentHp() + "/" + controller.getPlayer().getMaxHp() +
                 "\nDanno: " + controller.getPlayer().getAttackStat());
-        // Per il nemico mostra i suoi HP correnti rispetto al suo HP massimo (base)
+
         enemyHpLabel.setText(controller.getEnemy().getName() +
                 "\nHP: " + controller.getEnemy().getCurrentHp() + "/" + controller.getEnemy().getMaxHp());
+
         if (controller.getEnemy().isAlive() && controller.getPlayer().isAlive()) {
             attackButton.setText("ATTACCA (Turno " + controller.getTurn() + ")");
         }
