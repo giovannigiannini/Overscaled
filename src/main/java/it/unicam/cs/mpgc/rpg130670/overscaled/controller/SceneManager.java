@@ -23,7 +23,10 @@ public class SceneManager {
         WelcomeView welcomeView = new WelcomeView(this);
         stage.setScene(new Scene(welcomeView.getRoot(), 800, 600));
         stage.setTitle("OVERSCALED - Benvenuto");
+        stage.setAlwaysOnTop(true);
         stage.show();
+        stage.setAlwaysOnTop(false);
+        stage.requestFocus();
     }
 
     public void showWeaponSelectionScreen(String playerName) {
@@ -50,8 +53,8 @@ public class SceneManager {
         stage.setScene(new Scene(battleView.getRoot(), 800, 800));
         stage.setTitle("OVERSCALED - Combattimento");
     }
-    public void showEndScreen(int victories) {
-        EndGameView endGameView = new EndGameView(this, victories);
+    public void showEndScreen(Player player) {
+        EndGameView endGameView = new EndGameView(this, player);
         Scene endScene = new Scene(endGameView.getRoot(), 800, 600);
         stage.setScene(endScene);
         stage.setTitle("OVERSCALED - GAME OVER");

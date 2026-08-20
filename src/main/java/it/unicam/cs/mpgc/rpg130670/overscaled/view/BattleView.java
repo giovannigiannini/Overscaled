@@ -26,7 +26,7 @@ public class BattleView {
 
         root = new VBox(20);
         root.setAlignment(Pos.CENTER);
-        root.setStyle("-fx-background-color: #141414; -fx-padding: 30;");
+        root.setStyle(UIStyle.MAIN_CONTAINER + " -fx-padding: 30;");
 
         Label title = new Label("COMBATTIMENTO!");
         title.setFont(Font.font("Consolas", FontWeight.BOLD, 32));
@@ -36,11 +36,11 @@ public class BattleView {
         statsBox.setAlignment(Pos.CENTER);
 
         playerHpLabel = new Label();
-        playerHpLabel.setTextFill(Color.web("#2ECC71"));
+        playerHpLabel.setTextFill(Color.web(UIStyle.GREEN_ACCENT));
         playerHpLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 15));
 
         enemyHpLabel = new Label();
-        enemyHpLabel.setTextFill(Color.web("#F1C40F"));
+        enemyHpLabel.setTextFill(Color.web(UIStyle.YELLOW_TITLE));
         enemyHpLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 15));
 
         statsBox.getChildren().addAll(playerHpLabel, enemyHpLabel);
@@ -48,15 +48,16 @@ public class BattleView {
         logArea = new TextArea("Un " + controller.getEnemy().getName() + " selvatico appare!\n");
         logArea.setEditable(false);
         logArea.setWrapText(true);
-        logArea.setMaxWidth(520);
-        logArea.setMaxHeight(200);
+        logArea.setMaxWidth(640);
+        logArea.setMaxHeight(420);
 
+        // Palette stile console RPG: Sfondo scuro e testo sabbia/ambra ben leggibile
         logArea.setStyle(
-                "-fx-control-inner-background: #2B3E50;" +
-                        "-fx-text-fill: #ECEFF4;" +
+                "-fx-control-inner-background: #181A1B;" +
+                        "-fx-text-fill: #E8E6E3;" +
                         "-fx-font-family: 'Consolas', monospace;" +
                         "-fx-font-size: 13px;" +
-                        "-fx-border-color: #384E63;" +
+                        "-fx-border-color: #454A4D;" +
                         "-fx-border-width: 1.5px;" +
                         "-fx-border-radius: 4px;" +
                         "-fx-background-radius: 4px;"
@@ -81,20 +82,19 @@ public class BattleView {
     private void handleAttack() {
         String turnLog = controller.executeTurn();
         logArea.appendText(turnLog);
+
+        // Mantiene il log sempre scrollato verso l'ultimo messaggio
+        logArea.setScrollTop(Double.MAX_VALUE);
+        logArea.selectRange(logArea.getLength(), logArea.getLength());
+
         updateUi();
+
         if (!controller.getEnemy().isAlive()) {
             attackButton.setText("TORNA ALLA MAPPA");
-            attackButton.setStyle(
-                    "-fx-background-color: #2ECC71;" +
-                            "-fx-text-fill: white;" +
-                            "-fx-padding: 10 25;" +
-                            "-fx-background-radius: 4px;" +
-                            "-fx-cursor: hand;"
-            );
+            attackButton.setStyle(UIStyle.BUTTON_GREEN);
             attackButton.setOnAction(e -> controller.returnToMap());
         } else if (!controller.getPlayer().isAlive()) {
-            int victories = controller.getPlayer().getVictories();
-            controller.getSceneManager().showEndScreen(victories);
+            controller.getSceneManager().showEndScreen(controller.getPlayer());
         }
     }
 
