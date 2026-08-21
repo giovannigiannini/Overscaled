@@ -4,7 +4,7 @@ import it.unicam.cs.mpgc.rpg130670.overscaled.model.Stats;
 
 public class Sword extends Weapon {
     public Sword() {
-        super("Spada", new Stats(700, 120), "+25 danno ogni vittoria \n+40 vita ogni vittoria");
+        super("Spada", new Stats(700, 120), " +25 danno ogni vittoria \n+40 vita ogni vittoria");
     }
     @Override
     public int calculateDamageWin(int victories) {

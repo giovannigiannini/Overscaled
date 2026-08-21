@@ -1,7 +1,37 @@
 [
   {
     "name": "ggg",
+    "weaponName": "Ascia",
+    "victories": 12
+  },
+  {
+    "name": "23",
     "weaponName": "Spada",
+    "victories": 8
+  },
+  {
+    "name": "77",
+    "weaponName": "Scudo \u0026 Lancia",
+    "victories": 15
+  },
+  {
+    "name": "ttt",
+    "weaponName": "Ascia",
     "victories": 7
+  },
+  {
+    "name": "66",
+    "weaponName": "Spada",
+    "victories": 8
+  },
+  {
+    "name": "444",
+    "weaponName": "Spada",
+    "victories": 10
+  },
+  {
+    "name": "QQ",
+    "weaponName": "Scudo \u0026 Lancia",
+    "victories": 8
   }
 ]

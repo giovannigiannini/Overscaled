@@ -9,6 +9,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SaveManager {
     private static final String DIR_PATH = "data";
@@ -45,5 +46,12 @@ public class SaveManager {
             System.err.println("Errore nella lettura del file JSON: " + e.getMessage());
             return new ArrayList<>();
         }
+    }
+    public static List<PlayerData> getTop10Players() {
+        List<PlayerData> players = loadAllPlayers();
+        return players.stream()
+                .sorted((p1, p2) -> Integer.compare(p2.victories(), p1.victories()))
+                .limit(10)
+                .collect(Collectors.toList());
     }
 }
