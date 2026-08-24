@@ -14,4 +14,10 @@ public class Wolf extends Enemy {
         }
         return currentDmg;
     }
+    @Override
+    public int getBonusHpWin() { return 15; }
+    @Override
+    public int getBonusDamageWin() { return 7; }
+    @Override
+    public double getHealPercentage() { return 0.50; }
 }

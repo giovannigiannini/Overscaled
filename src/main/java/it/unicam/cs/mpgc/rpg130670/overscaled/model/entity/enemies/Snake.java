@@ -11,4 +11,10 @@ public class Snake extends Enemy {
         if (turn > 4 ) return getAttackStat() + (turn * 30);
         return getAttackStat() + (turn * 15);
     }
+    @Override
+    public int getBonusHpWin() { return 10; }
+    @Override
+    public int getBonusDamageWin() { return 5; }
+    @Override
+    public double getHealPercentage() { return 0.25; }
 }

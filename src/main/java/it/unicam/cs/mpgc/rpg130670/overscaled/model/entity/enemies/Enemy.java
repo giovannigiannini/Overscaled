@@ -9,4 +9,7 @@ public abstract class Enemy extends Character {
         super(name, new Stats(baseStats.hp() + (victories * 100), baseStats.damage() + (victories * 15)));
     }
     public abstract int calculateDamage(int turn);
+    public abstract int getBonusHpWin();
+    public abstract int getBonusDamageWin();
+    public abstract double getHealPercentage();
 }

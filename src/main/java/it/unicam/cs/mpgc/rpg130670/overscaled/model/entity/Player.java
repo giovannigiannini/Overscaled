@@ -8,7 +8,6 @@ public class Player extends Character {
     private int victories;
     private int bonusHpWin = 0;
     private int bonusDamageWin = 0;
-    private double healPercentage;
 
     public Player(String name, Weapon weapon) {
         super(name, weapon.getBaseStats());
@@ -18,34 +17,16 @@ public class Player extends Character {
 
     public int onVictory(Enemy enemy) {
         this.victories++;
-        // Bonus Enemy
-        applyEnemyBonuses(enemy);
-        // Calcola le nuove statistiche massime e la cura
+        this.bonusHpWin += enemy.getBonusHpWin();
+        this.bonusDamageWin += enemy.getBonusDamageWin();
+        double healPercentage = enemy.getHealPercentage();
+
         int newMaxHp = weapon.calculateHpWin(this.victories) + this.bonusHpWin;
         int newDamage = weapon.calculateDamageWin(this.victories) + this.bonusDamageWin;
         int hpHealed = calculateHealAmount(newMaxHp, healPercentage);
-        // Aggiorna le stats
         updatePlayerStats(newMaxHp, newDamage, hpHealed);
 
         return hpHealed;
-    }
-
-    private void applyEnemyBonuses(Enemy enemy) {
-        if (enemy instanceof Snake) {
-            bonusHpWin += 10;
-            bonusDamageWin += 5;
-            healPercentage = 0.25;
-        }
-        if (enemy instanceof Wolf) {
-            bonusHpWin += 15;
-            bonusDamageWin += 7;
-            healPercentage = 0.50;
-        }
-        if(enemy instanceof Gorilla) {
-            bonusHpWin += 30;
-            bonusDamageWin += 10;
-            healPercentage = 0.85;
-        }
     }
 
     private int calculateHealAmount(int newMaxHp, double healPercentage) {

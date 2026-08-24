@@ -14,4 +14,10 @@ public class Gorilla extends Enemy {
         }
         return currentDmg;
     }
+    @Override
+    public int getBonusHpWin() { return 30; }
+    @Override
+    public int getBonusDamageWin() { return 10; }
+    @Override
+    public double getHealPercentage() { return 0.85; }
 }
