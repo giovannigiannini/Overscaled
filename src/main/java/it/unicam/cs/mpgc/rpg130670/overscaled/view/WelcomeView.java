@@ -167,7 +167,6 @@ public class WelcomeView {
         headerRow.setStyle("-fx-background-color: #242D35; -fx-padding: 8;");
         tableContainer.getChildren().add(headerRow);
 
-        // Chiamata al controller
         List<PlayerData> topPlayers = controller.getTopPlayers();
         if (topPlayers.isEmpty()) {
             Label emptyLbl = new Label("Nessun salvataggio presente.");

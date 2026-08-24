@@ -29,9 +29,11 @@ public class SceneManager {
     }
 
     public void showWeaponSelectionScreen(String playerName) {
-        WeaponSelectionView selectionView = new WeaponSelectionView(this, playerName);
-        stage.setScene(new Scene(selectionView.getRoot(), 800, 600));
+        WeaponSelectionController controller = new WeaponSelectionController(this, playerName);
+        WeaponSelectionView view = new WeaponSelectionView(controller);
+        stage.setScene(new Scene(view.getRoot(), 800, 600));
         stage.setTitle("OVERSCALED - Selezione Arma");
+        stage.show();
     }
 
     public void startGame(String playerName, Weapon selectedWeapon) {
