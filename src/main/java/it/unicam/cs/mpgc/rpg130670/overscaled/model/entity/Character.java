@@ -4,14 +4,12 @@ import it.unicam.cs.mpgc.rpg130670.overscaled.model.Stats;
 
 public abstract class Character {
     private final String name;
-    private final Stats baseStats;
     private int maxHp;         // Vita massima (scala nel tempo)
     private int currentHp;     // Vita attuale (scende in battaglia)
     private int attackStat;    // Danno d'attacco (scala nel tempo)
 
     public Character(String name, Stats baseStats) {
         this.name = name;
-        this.baseStats = baseStats;
         this.maxHp = baseStats.hp();
         this.currentHp = baseStats.hp();
         this.attackStat = baseStats.damage();
