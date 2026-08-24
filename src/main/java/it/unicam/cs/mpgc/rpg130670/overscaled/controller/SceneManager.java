@@ -20,12 +20,11 @@ public class SceneManager {
     }
 
     public void showWelcomeScreen() {
-        WelcomeView welcomeView = new WelcomeView(this);
+        WelcomeController welcomeController = new WelcomeController(this);
+        WelcomeView welcomeView = new WelcomeView(welcomeController);
         stage.setScene(new Scene(welcomeView.getRoot(), 800, 600));
         stage.setTitle("OVERSCALED - Benvenuto");
-        stage.setAlwaysOnTop(true);
         stage.show();
-        stage.setAlwaysOnTop(false);
         stage.requestFocus();
     }
 

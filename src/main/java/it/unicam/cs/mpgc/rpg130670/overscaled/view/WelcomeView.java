@@ -1,8 +1,7 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
-import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SceneManager;
+import it.unicam.cs.mpgc.rpg130670.overscaled.controller.WelcomeController;
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.PlayerData;
-import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SaveManager;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,42 +24,27 @@ import java.util.List;
 
 public class WelcomeView {
     private final BorderPane root;
+    private final WelcomeController controller;
 
-    public WelcomeView(SceneManager sceneManager) {
+    public WelcomeView(WelcomeController controller) {
+        this.controller = controller;
+
         root = new BorderPane();
         root.setStyle(UIStyle.MAIN_CONTAINER);
         root.setPadding(new Insets(20));
 
-        Button helpBtn = new Button("❓ GUIDA");
-        helpBtn.setStyle(
-                "-fx-background-color: transparent;" +
-                        "-fx-text-fill: " + UIStyle.WHITE_TEXT + ";" +
-                        "-fx-font-family: 'Consolas';" +
-                        "-fx-font-weight: bold;" +
-                        "-fx-font-size: 14px;" +
-                        "-fx-border-color: " + UIStyle.WHITE_TEXT + ";" +
-                        "-fx-border-radius: 4px;" +
-                        "-fx-cursor: hand;"
-        );
+        // Top Bar: Pulsanti Guida e Classifica
+        Button helpBtn = createOutlineButton("❓ GUIDA", UIStyle.WHITE_TEXT);
         helpBtn.setOnAction(e -> showHelpDialog());
 
-        Button leaderboardBtn = new Button("🏆 CLASSIFICA");
-        leaderboardBtn.setStyle(
-                "-fx-background-color: transparent;" +
-                        "-fx-text-fill: " + UIStyle.YELLOW_TITLE + ";" +
-                        "-fx-font-family: 'Consolas';" +
-                        "-fx-font-weight: bold;" +
-                        "-fx-font-size: 14px;" +
-                        "-fx-border-color: " + UIStyle.YELLOW_TITLE + ";" +
-                        "-fx-border-radius: 4px;" +
-                        "-fx-cursor: hand;"
-        );
+        Button leaderboardBtn = createOutlineButton("🏆 CLASSIFICA", UIStyle.YELLOW_TITLE);
         leaderboardBtn.setOnAction(e -> showLeaderboardDialog());
 
         HBox topBar = new HBox(12, helpBtn, leaderboardBtn);
         topBar.setAlignment(Pos.TOP_RIGHT);
         root.setTop(topBar);
 
+        // Sezione centrale
         Label titleLabel = new Label("OVERSCALED");
         titleLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 48));
         titleLabel.setTextFill(Color.web(UIStyle.YELLOW_TITLE));
@@ -78,11 +62,9 @@ public class WelcomeView {
         startButton.setStyle(UIStyle.BUTTON_GREEN);
 
         Runnable startAction = () -> {
-            String inputName = nameField.getText().trim();
-            if (inputName.length() < 2) {
+            boolean success = controller.startNewGame(nameField.getText());
+            if (!success) {
                 errorLabel.setText("Inserisci un nome valido! (2+ caratteri)");
-            } else {
-                sceneManager.showWeaponSelectionScreen(inputName);
             }
         };
 
@@ -96,6 +78,21 @@ public class WelcomeView {
         root.setCenter(centerBox);
 
         Platform.runLater(nameField::requestFocus);
+    }
+
+    private Button createOutlineButton(String text, String colorHex) {
+        Button btn = new Button(text);
+        btn.setStyle(
+                "-fx-background-color: transparent;" +
+                        "-fx-text-fill: " + colorHex + ";" +
+                        "-fx-font-family: 'Consolas';" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-font-size: 14px;" +
+                        "-fx-border-color: " + colorHex + ";" +
+                        "-fx-border-radius: 4px;" +
+                        "-fx-cursor: hand;"
+        );
+        return btn;
     }
 
     private void showHelpDialog() {
@@ -138,7 +135,6 @@ public class WelcomeView {
         closeBtn.setStyle(UIStyle.BUTTON_GREEN);
         closeBtn.setOnAction(e -> dialog.close());
 
-        // Impostiamo lo sfondo scuro direttamente sul contenitore della Scena
         VBox mainLayout = new VBox(20, title, infoContainer, closeBtn);
         mainLayout.setAlignment(Pos.CENTER);
         mainLayout.setPadding(new Insets(20));
@@ -171,7 +167,8 @@ public class WelcomeView {
         headerRow.setStyle("-fx-background-color: #242D35; -fx-padding: 8;");
         tableContainer.getChildren().add(headerRow);
 
-        List<PlayerData> topPlayers = SaveManager.getTop10Players();
+        // Chiamata al controller
+        List<PlayerData> topPlayers = controller.getTopPlayers();
         if (topPlayers.isEmpty()) {
             Label emptyLbl = new Label("Nessun salvataggio presente.");
             emptyLbl.setFont(Font.font("Consolas", 13));

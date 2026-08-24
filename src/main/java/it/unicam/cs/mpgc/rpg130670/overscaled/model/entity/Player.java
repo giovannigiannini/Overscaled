@@ -1,9 +1,6 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.model.entity;
 
-import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies.Enemy;
-import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies.Gorilla;
-import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies.Snake;
-import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies.Wolf;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies.*;
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapon.Weapon;
 
 public class Player extends Character {
