@@ -18,10 +18,14 @@ Una volta sceso in campo, il giocatore esplora la mappa alla ricerca dei nemici 
    ```bash
    git clone https://github.com/giovannigiannini/Overscaled.git
    cd Overscaled
-2. **Build e run del progetto**
+2. **Build e run del progetto per mac, Linux e per l'IDE Intellij**
    ```bash
    ./gradlew build
    ./gradlew run
+3. **Build e run del progetto per prompt dei comandi Windows**
+    ```bash
+   gradlew build
+   gradlew run
 ---
 ## 🤖 Dichiarazione sull'Uso di Strumenti di AI
 1. **Gemini**, utilizzato per:  
