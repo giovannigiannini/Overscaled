@@ -61,7 +61,7 @@ public class SceneManager {
         stage.setTitle("OVERSCALED - GAME OVER");
     }
     public void returnToMap(GameView gameView) {
-        gameView.updateStats();
+        gameView.render();
         Scene gameScene = new Scene(gameView.getRoot());
         gameScene.setOnKeyPressed(gameView::handleKeyPress);
         stage.setScene(gameScene);
