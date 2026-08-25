@@ -12,6 +12,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * Vista per l'interfaccia grafica del combattimento a turni.
+ *
+ * @author Giannini Giovanni
+ */
 public class BattleView {
     private final BattleController controller;
     private final VBox root;
@@ -19,7 +24,7 @@ public class BattleView {
     private final Label playerHpLabel;
     private final Label enemyHpLabel;
     private final TextArea logArea;
-    private final Button attackButton;
+    private final Button actionButton;
 
     public BattleView(BattleController controller) {
         this.controller = controller;
@@ -51,7 +56,6 @@ public class BattleView {
         logArea.setMaxWidth(640);
         logArea.setMaxHeight(420);
 
-        // Palette stile console RPG: Sfondo scuro e testo sabbia/ambra ben leggibile
         logArea.setStyle(
                 "-fx-control-inner-background: #181A1B;" +
                         "-fx-text-fill: #E8E6E3;" +
@@ -63,9 +67,9 @@ public class BattleView {
                         "-fx-background-radius: 4px;"
         );
 
-        attackButton = new Button();
-        attackButton.setFont(Font.font("Consolas", FontWeight.BOLD, 14));
-        attackButton.setStyle(
+        actionButton = new Button();
+        actionButton.setFont(Font.font("Consolas", FontWeight.BOLD, 14));
+        actionButton.setStyle(
                 "-fx-background-color: #E74C3C;" +
                         "-fx-text-fill: white;" +
                         "-fx-padding: 10 25;" +
@@ -73,9 +77,9 @@ public class BattleView {
                         "-fx-cursor: hand;"
         );
 
-        attackButton.setOnAction(e -> handleAttack());
+        actionButton.setOnAction(e -> handleAttack());
 
-        root.getChildren().addAll(title, statsBox, logArea, attackButton);
+        root.getChildren().addAll(title, statsBox, logArea, actionButton);
         updateUi();
     }
 
@@ -83,18 +87,20 @@ public class BattleView {
         String turnLog = controller.executeTurn();
         logArea.appendText(turnLog);
 
-        // Mantiene il log sempre scrollato verso l'ultimo messaggio
         logArea.setScrollTop(Double.MAX_VALUE);
         logArea.selectRange(logArea.getLength(), logArea.getLength());
 
         updateUi();
 
-        if (!controller.getEnemy().isAlive()) {
-            attackButton.setText("TORNA ALLA MAPPA");
-            attackButton.setStyle(UIStyle.BUTTON_GREEN);
-            attackButton.setOnAction(e -> controller.returnToMap());
-        } else if (!controller.getPlayer().isAlive()) {
-            controller.getSceneManager().showEndScreen(controller.getPlayer());
+        // Morte del Player
+        if (!controller.getPlayer().isAlive()) {
+            controller.showEndScreen();
+        }
+        // Vittoria del Player
+        else if (!controller.getEnemy().isAlive()) {
+            actionButton.setText("TORNA ALLA MAPPA");
+            actionButton.setStyle(UIStyle.BUTTON_GREEN);
+            actionButton.setOnAction(e -> controller.returnToMap());
         }
     }
 
@@ -107,9 +113,11 @@ public class BattleView {
                 "\nHP: " + controller.getEnemy().getCurrentHp() + "/" + controller.getEnemy().getMaxHp());
 
         if (controller.getEnemy().isAlive() && controller.getPlayer().isAlive()) {
-            attackButton.setText("ATTACCA (Turno " + controller.getTurn() + ")");
+            actionButton.setText("ATTACCA (Turno " + controller.getTurn() + ")");
         }
     }
 
-    public Parent getRoot() { return root; }
+    public Parent getRoot() {
+        return root;
+    }
 }
