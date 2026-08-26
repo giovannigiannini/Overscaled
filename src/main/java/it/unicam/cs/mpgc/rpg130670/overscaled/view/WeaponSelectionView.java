@@ -1,7 +1,7 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
-import it.unicam.cs.mpgc.rpg130670.overscaled.controller.WeaponSelectionController;
-import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapon.Weapon;
+import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SceneManager;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapon.*;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -14,28 +14,42 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.util.List;
 import java.util.Objects;
 
+/**
+ * Vista per la selezione dell'arma iniziale.
+ * Gestisce direttamente l'interfaccia e la notifica di avvio allo SceneManager.
+ *
+ * @author Giannini Giovanni
+ */
 public class WeaponSelectionView {
     private final VBox root;
-    private final WeaponSelectionController controller;
+    private final SceneManager sceneManager;
+    private final String playerName;
 
-    public WeaponSelectionView(WeaponSelectionController controller) {
-        this.controller = controller;
+    public WeaponSelectionView(SceneManager sceneManager, String playerName) {
+        this.sceneManager = sceneManager;
+        this.playerName = playerName;
 
         root = new VBox(30);
         root.setAlignment(Pos.CENTER);
         root.setStyle(UIStyle.MAIN_CONTAINER);
 
-        Label titleLabel = new Label("Scegli la tua arma, " + controller.getPlayerName() + "!");
+        Label titleLabel = new Label("Scegli la tua arma, " + playerName + "!");
         titleLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 28));
         titleLabel.setTextFill(Color.web(UIStyle.YELLOW_TITLE));
 
         HBox cardsContainer = new HBox(20);
         cardsContainer.setAlignment(Pos.CENTER);
 
-        // Richiesta delle armi al controller (separazione responsabilità)
-        for (Weapon weapon : controller.getAvailableWeapons()) {
+        List<Weapon> availableWeapons = List.of(
+                new Sword(),
+                new Axe(),
+                new SpearAndShield()
+        );
+
+        for (Weapon weapon : availableWeapons) {
             VBox card = createWeaponCard(weapon);
             cardsContainer.getChildren().add(card);
         }
@@ -79,8 +93,7 @@ public class WeaponSelectionView {
         Button selectButton = new Button("SELEZIONA");
         selectButton.setStyle(UIStyle.BUTTON_GREEN);
 
-        // il click del bottone sarà gestito dal controller
-        selectButton.setOnAction(e -> controller.selectWeapon(weapon));
+        selectButton.setOnAction(e -> sceneManager.startGame(playerName, weapon));
 
         card.getChildren().addAll(nameLabel, iconView, statsLabel, descLabel, selectButton);
         return card;

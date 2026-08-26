@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
-import it.unicam.cs.mpgc.rpg130670.overscaled.controller.WelcomeController;
+import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SaveManager;
+import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SceneManager;
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.PlayerData;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -22,12 +23,18 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * Vista di benvenuto e avvio partita.
+ * Gestisce direttamente l'input utente e la transizione tramite SceneManager.
+ *
+ * @author Giannini Giovanni
+ */
 public class WelcomeView {
     private final BorderPane root;
-    private final WelcomeController controller;
+    private final SceneManager sceneManager;
 
-    public WelcomeView(WelcomeController controller) {
-        this.controller = controller;
+    public WelcomeView(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
 
         root = new BorderPane();
         root.setStyle(UIStyle.MAIN_CONTAINER);
@@ -62,9 +69,12 @@ public class WelcomeView {
         startButton.setStyle(UIStyle.BUTTON_GREEN);
 
         Runnable startAction = () -> {
-            boolean success = controller.startNewGame(nameField.getText());
-            if (!success) {
+            String inputName = nameField.getText() != null ? nameField.getText().trim() : "";
+
+            if (inputName.length() < 2) {
                 errorLabel.setText("Inserisci un nome valido! (2+ caratteri)");
+            } else {
+                sceneManager.showWeaponSelectionScreen(inputName);
             }
         };
 
@@ -167,7 +177,7 @@ public class WelcomeView {
         headerRow.setStyle("-fx-background-color: #242D35; -fx-padding: 8;");
         tableContainer.getChildren().add(headerRow);
 
-        List<PlayerData> topPlayers = controller.getTopPlayers();
+        List<PlayerData> topPlayers = SaveManager.getTop10Players();
         if (topPlayers.isEmpty()) {
             Label emptyLbl = new Label("Nessun salvataggio presente.");
             emptyLbl.setFont(Font.font("Consolas", 13));

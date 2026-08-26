@@ -1,6 +1,8 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
 import it.unicam.cs.mpgc.rpg130670.overscaled.controller.GameController;
+import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SceneManager;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies.Enemy;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
@@ -20,14 +22,19 @@ import java.io.InputStream;
 public class GameView {
     private static final int TILE_SIZE = 40;
     private static final int GRID_SIZE = 20;
+
     private final GameController controller;
+    private final SceneManager sceneManager;
+
     private final VBox root;
     private final Canvas canvas;
     private final Label statsLabel;
     private Image playerSprite;
 
-    public GameView(GameController controller) {
+    public GameView(GameController controller, SceneManager sceneManager) {
         this.controller = controller;
+        this.sceneManager = sceneManager;
+
         this.root = new VBox();
         this.root.setStyle(UIStyle.MAIN_CONTAINER);
         this.root.setAlignment(Pos.CENTER);
@@ -87,7 +94,7 @@ public class GameView {
 
     public void render() {
         statsLabel.setText("NEMICI SCONFITTI: " + controller.getPlayerVictories());
-        // Ridisegna Canvas
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.web("#27ae60"));
         gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -110,15 +117,24 @@ public class GameView {
     }
 
     public void handleKeyPress(KeyEvent event) {
+        int X = 0;
+        int Y = 0;
+
         switch (event.getCode()) {
-            case W, UP    -> controller.movePlayer(0, -1);
-            case S, DOWN  -> controller.movePlayer(0, 1);
-            case A, LEFT  -> controller.movePlayer(-1, 0);
-            case D, RIGHT -> controller.movePlayer(1, 0);
+            case W, UP    -> Y = -1;
+            case S, DOWN  -> Y = 1;
+            case A, LEFT  -> X = -1;
+            case D, RIGHT -> X = 1;
             default -> { return; }
         }
+
+        Enemy enemy = controller.movePlayer(X, Y);
         render();
+        if (enemy != null) {
+            sceneManager.showBattleScreen(controller.getPlayer(), enemy, controller);
+        }
     }
+
     public Parent getRoot() {
         return root;
     }
