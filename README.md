@@ -35,3 +35,8 @@ Il giocatore personalizza il proprio eroe scegliendo l'arma ed esplora la mappa 
 
 
 L'AI è stata usata solo come supporto e per chiarire dubbi. Ho studiato, testato e integrato manualmente ogni suggerimento dopo averne compreso la logica mantenendo il controllo completo sul funzionamento del codice.
+
+---
+---
+
+📌 Per una descrizione più dettagliata dell’uso dell’AI, utilizzare la **[Wiki del repository](https://github.com/giovannigiannini/Overscaled/wiki/Dichiarazione-Uso-di-Strumenti-AI)**.  
