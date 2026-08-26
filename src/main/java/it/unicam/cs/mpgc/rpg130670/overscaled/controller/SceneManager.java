@@ -20,27 +20,24 @@ public class SceneManager {
     }
 
     public void showWelcomeScreen() {
-        WelcomeController welcomeController = new WelcomeController(this);
-        WelcomeView welcomeView = new WelcomeView(welcomeController);
-        stage.setScene(new Scene(welcomeView.getRoot(), 800, 600));
+        WelcomeView welcomeView = new WelcomeView(this);
+        Scene scene = new Scene(welcomeView.getRoot(), 800, 600);
+        stage.setScene(scene);
         stage.setTitle("OVERSCALED - Benvenuto");
         stage.show();
-        stage.requestFocus();
     }
 
     public void showWeaponSelectionScreen(String playerName) {
-        WeaponSelectionController controller = new WeaponSelectionController(this, playerName);
-        WeaponSelectionView view = new WeaponSelectionView(controller);
-        stage.setScene(new Scene(view.getRoot(), 800, 600));
+        WeaponSelectionView view = new WeaponSelectionView(this, playerName);
+        Scene scene = new Scene(view.getRoot(), 900, 650);
+        stage.setScene(scene);
         stage.setTitle("OVERSCALED - Selezione Arma");
-        stage.show();
     }
 
     public void startGame(String playerName, Weapon selectedWeapon) {
         Player player = new Player(playerName, selectedWeapon);
-        GameController gameController = new GameController(player, this);
-        GameView gameView = new GameView(gameController);
-
+        GameController gameController = new GameController(player);
+        GameView gameView = new GameView(gameController, this);
         Scene gameScene = new Scene(gameView.getRoot());
         gameScene.setOnKeyPressed(gameView::handleKeyPress);
         stage.setScene(gameScene);
@@ -49,8 +46,8 @@ public class SceneManager {
     }
 
     public void showBattleScreen(Player player, Enemy enemy, GameController gameController) {
-        BattleController battleController = new BattleController(player, enemy, this, gameController);
-        BattleView battleView = new BattleView(battleController);
+        BattleController battleController = new BattleController(player, enemy);
+        BattleView battleView = new BattleView(battleController, this, gameController);
         stage.setScene(new Scene(battleView.getRoot(), 800, 800));
         stage.setTitle("OVERSCALED - Combattimento");
     }

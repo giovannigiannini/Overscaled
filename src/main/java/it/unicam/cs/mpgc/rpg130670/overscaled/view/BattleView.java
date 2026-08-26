@@ -1,6 +1,8 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 
 import it.unicam.cs.mpgc.rpg130670.overscaled.controller.BattleController;
+import it.unicam.cs.mpgc.rpg130670.overscaled.controller.GameController;
+import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SceneManager;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -19,15 +21,19 @@ import javafx.scene.text.FontWeight;
  */
 public class BattleView {
     private final BattleController controller;
-    private final VBox root;
+    private final SceneManager sceneManager;
+    private final GameController gameController;
 
+    private final VBox root;
     private final Label playerHpLabel;
     private final Label enemyHpLabel;
     private final TextArea logArea;
     private final Button actionButton;
 
-    public BattleView(BattleController controller) {
+    public BattleView(BattleController controller, SceneManager sceneManager, GameController gameController) {
         this.controller = controller;
+        this.sceneManager = sceneManager;
+        this.gameController = gameController;
 
         root = new VBox(20);
         root.setAlignment(Pos.CENTER);
@@ -94,13 +100,13 @@ public class BattleView {
 
         // Morte del Player
         if (!controller.getPlayer().isAlive()) {
-            controller.showEndScreen();
+            sceneManager.showEndScreen(controller.getPlayer());
         }
         // Vittoria del Player
         else if (!controller.getEnemy().isAlive()) {
             actionButton.setText("TORNA ALLA MAPPA");
             actionButton.setStyle(UIStyle.BUTTON_GREEN);
-            actionButton.setOnAction(e -> controller.returnToMap());
+            actionButton.setOnAction(e -> sceneManager.returnToMap(new GameView(gameController, sceneManager)));
         }
     }
 
@@ -117,7 +123,5 @@ public class BattleView {
         }
     }
 
-    public Parent getRoot() {
-        return root;
-    }
+    public Parent getRoot() { return root; }
 }

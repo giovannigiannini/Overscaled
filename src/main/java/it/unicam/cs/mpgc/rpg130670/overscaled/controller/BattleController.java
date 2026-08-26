@@ -2,7 +2,6 @@ package it.unicam.cs.mpgc.rpg130670.overscaled.controller;
 
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.Player;
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies.Enemy;
-import it.unicam.cs.mpgc.rpg130670.overscaled.view.GameView;
 
 /**
  * Controller per la gestione della logica di combattimento a turni tra Player ed Enemy.
@@ -10,18 +9,13 @@ import it.unicam.cs.mpgc.rpg130670.overscaled.view.GameView;
  * @author Giannini Giovanni
  */
 public class BattleController {
-
     private final Player player;
     private final Enemy enemy;
-    private final SceneManager sceneManager;
-    private final GameController gameController;
     private int turn = 1;
 
-    public BattleController(Player player, Enemy enemy, SceneManager sceneManager, GameController gameController) {
+    public BattleController(Player player, Enemy enemy) {
         this.player = player;
         this.enemy = enemy;
-        this.sceneManager = sceneManager;
-        this.gameController = gameController;
     }
 
     public String executeTurn() {
@@ -64,16 +58,6 @@ public class BattleController {
 
         return log.toString();
     }
-
-    // Gestione delle transizioni anche qui in modo da non delegare questa responsabilità alla GameView
-    public void returnToMap() {
-        sceneManager.returnToMap(new GameView(gameController));
-    }
-
-    public void showEndScreen() {
-        sceneManager.showEndScreen(player);
-    }
-
     public Player getPlayer() { return player; }
     public Enemy getEnemy() { return enemy; }
     public int getTurn() { return turn; }
