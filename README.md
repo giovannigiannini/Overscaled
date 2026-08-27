@@ -3,7 +3,7 @@
 OVERSCALED è un RPG tattico 2D a turni in Java/JavaFX con estetica retro dark,
 dotato di guida integrata e salvataggio dei punteggi in JSON.
 
-Il giocatore personalizza il proprio eroe scegliendo l'arma ed esplora la mappa per affrontare nemici in combattimenti strategici. Lo scopo del gioco è sopravvivere il più a lungo possibile, sconfiggendo gli avversari per recuperare salute e guadagnare potenziamenti progressivi.
+Il giocatore personalizza il proprio eroe scegliendo l'arma ed esplora la mappa per affrontare nemici in combattimenti strategici (stile Pokemon sul Nintendo). Lo scopo del gioco è sopravvivere il più a lungo possibile, sconfiggendo gli avversari per recuperare salute e guadagnare potenziamenti progressivi.
 
 ---
 
