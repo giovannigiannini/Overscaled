@@ -16,5 +16,5 @@ public class Snake extends Enemy {
     @Override
     public int getBonusDamageWin() { return 5; }
     @Override
-    public double getHealPercentage() { return 0.25; }
+    public double getHealPercentage() { return 0.30; }
 }

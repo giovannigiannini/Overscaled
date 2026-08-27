@@ -22,7 +22,7 @@ import java.io.InputStream;
 /**
  * Questa classe rappresenta la vista principale del gioco, gestendo la visualizzazione della mappa, del giocatore e delle statistiche.
  * Si occupa anche di gestire l'input dell'utente per il movimento del giocatore
- * e la transizione alla schermata di battaglia quando il giocatore incontra un nemico
+ * e la transizione alla schermata di battaglia quando il giocatore incontra un nemico.
  *
  * @author Giannini Giovanni
  */
@@ -36,6 +36,7 @@ public class GameView {
     private final VBox root;
     private final Canvas canvas;
     private final Label statsLabel;
+    private Label playerStatsLabel;
     private Image playerSprite;
 
     public GameView(GameController controller, SceneManager sceneManager) {
@@ -62,7 +63,7 @@ public class GameView {
     }
 
     /**
-     * Crea l'overlay HUD che mostra i controlli e le statistiche del giocatore.
+     * Crea l'overlay HUD che mostra i controlli, lo stato del giocatore e i nemici sconfitti.
      */
     private BorderPane createHudOverlay(int width) {
         BorderPane hud = new BorderPane();
@@ -80,12 +81,23 @@ public class GameView {
         controlsLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 13));
         controlsLabel.setTextFill(Color.web(UIStyle.WHITE_TEXT));
 
+        this.playerStatsLabel = new Label();
+        this.playerStatsLabel.setFont(Font.font("Consolas", FontWeight.BOLD, 14));
+        this.playerStatsLabel.setTextFill(Color.web("#2ecc71"));
+
         Label stats = new Label();
         stats.setFont(Font.font("Consolas", FontWeight.BOLD, 14));
         stats.setTextFill(Color.web(UIStyle.YELLOW_TITLE));
 
         hud.setLeft(controlsLabel);
+        BorderPane.setAlignment(controlsLabel, Pos.CENTER_LEFT);
+
+        hud.setCenter(this.playerStatsLabel);
+        BorderPane.setAlignment(this.playerStatsLabel, Pos.CENTER);
+
         hud.setRight(stats);
+        BorderPane.setAlignment(stats, Pos.CENTER_RIGHT);
+
         return hud;
     }
 
@@ -108,6 +120,13 @@ public class GameView {
      */
     public void render() {
         statsLabel.setText("NEMICI SCONFITTI: " + controller.getPlayerVictories());
+
+        if (playerStatsLabel != null && controller.getPlayer() != null) {
+            int currentHp = controller.getPlayer().getCurrentHp();
+            int maxHp = controller.getPlayer().getMaxHp();
+            int damage = controller.getPlayer().getAttackStat();
+            playerStatsLabel.setText(String.format("HP: %d/%d  |  ATK: %d", currentHp, maxHp, damage));
+        }
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.web("#27ae60"));
