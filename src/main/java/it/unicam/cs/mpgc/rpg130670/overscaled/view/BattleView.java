@@ -15,7 +15,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 /**
- * Vista per l'interfaccia grafica del combattimento a turni.
+ * Vista per la schermata di combattimento.
+ * Mostra le statistiche del giocatore e del nemico, un'area di log per gli eventi di combattimento e un pulsante per eseguire l'attacco.
+ * Gestisce direttamente l'interfaccia e la notifica di avvio allo SceneManager.
  *
  * @author Giannini Giovanni
  */
@@ -88,7 +90,10 @@ public class BattleView {
         root.getChildren().addAll(title, statsBox, logArea, actionButton);
         updateUi();
     }
-
+    /**
+     * Gestisce l'evento di attacco del giocatore.
+     * Aggiorna il log di combattimento, le statistiche e verifica le condizioni di vittoria o sconfitta.
+     */
     private void handleAttack() {
         String turnLog = controller.executeTurn();
         logArea.appendText(turnLog);

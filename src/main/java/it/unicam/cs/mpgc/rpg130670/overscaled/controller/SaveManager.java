@@ -10,7 +10,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ * Classe per la gestione del salvataggio e caricamento dei dati dei giocatori in formato JSON.
+ * @author Giannini Giovanni
+ */
 public class SaveManager {
     private static final String DIR_PATH = "data";
     private static final String FILE_PATH = DIR_PATH + File.separator + "players_history.json";

@@ -1,7 +1,11 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.model.entity;
 
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.Stats;
-
+/**
+ * Classe astratta che rappresenta un personaggio nel gioco.
+ * Contiene attributi comuni come nome, punti vita massimi e attuali, e statistica di attacco.
+ * Fornisce metodi per gestire il danno subito e verificare se il personaggio è ancora vivo.
+ */
 public abstract class Character {
     private final String name;
     private int maxHp;         // Vita massima (scala nel tempo)

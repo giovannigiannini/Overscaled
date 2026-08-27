@@ -19,6 +19,13 @@ import javafx.scene.text.FontWeight;
 
 import java.io.InputStream;
 
+/**
+ * Questa classe rappresenta la vista principale del gioco, gestendo la visualizzazione della mappa, del giocatore e delle statistiche.
+ * Si occupa anche di gestire l'input dell'utente per il movimento del giocatore
+ * e la transizione alla schermata di battaglia quando il giocatore incontra un nemico
+ *
+ * @author Giannini Giovanni
+ */
 public class GameView {
     private static final int TILE_SIZE = 40;
     private static final int GRID_SIZE = 20;
@@ -54,6 +61,9 @@ public class GameView {
         render();
     }
 
+    /**
+     * Crea l'overlay HUD che mostra i controlli e le statistiche del giocatore.
+     */
     private BorderPane createHudOverlay(int width) {
         BorderPane hud = new BorderPane();
         hud.setStyle(
@@ -92,6 +102,10 @@ public class GameView {
         }
     }
 
+    /**
+     * Renderizza la mappa di gioco, il giocatore e le statistiche sul canvas.
+     * Viene chiamato ogni volta che il giocatore si muove o quando è necessario aggiornare la visualizzazione.
+     */
     public void render() {
         statsLabel.setText("NEMICI SCONFITTI: " + controller.getPlayerVictories());
 
@@ -116,6 +130,12 @@ public class GameView {
         }
     }
 
+    /**
+     * Gestisce l'input dell'utente per il movimento del giocatore.
+     * In base al tasto premuto, calcola la direzione del movimento e aggiorna la posizione del giocatore tramite il GameController.
+     * Se il giocatore incontra un nemico, viene mostrata la schermata di battaglia tramite lo SceneManager.
+     * @param event (tasto premuto)
+     */
     public void handleKeyPress(KeyEvent event) {
         int X = 0;
         int Y = 0;

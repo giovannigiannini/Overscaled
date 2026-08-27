@@ -13,6 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * Vista di fine partita. Mostra le statistiche del giocatore e offre opzioni per iniziare una nuova partita o uscire dal gioco.
+ * Gestisce direttamente l'interfaccia e la notifica di avvio allo SceneManager.
+ */
 public class EndGameView {
     private final VBox root;
 

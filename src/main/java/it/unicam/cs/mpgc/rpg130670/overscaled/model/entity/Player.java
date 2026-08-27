@@ -2,7 +2,10 @@ package it.unicam.cs.mpgc.rpg130670.overscaled.model.entity;
 
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies.*;
 import it.unicam.cs.mpgc.rpg130670.overscaled.model.weapon.Weapon;
-
+/**
+ * Classe che rappresenta il giocatore nel gioco.
+ * Estende la classe Character e gestisce le statistiche del giocatore, le vittorie e i bonus ottenuti.
+ */
 public class Player extends Character {
     private final Weapon weapon;
     private int victories;
@@ -15,6 +18,12 @@ public class Player extends Character {
         this.victories = 0;
     }
 
+    /**
+     * Gestisce l'evento di vittoria del giocatore.
+     * aggiorna le statistiche del giocatore in base al nemico sconfitto e calcola gli hp guariti.
+     * @param enemy Il nemico sconfitto.
+     * @return Gli hp guariti.
+     */
     public int onVictory(Enemy enemy) {
         this.victories++;
         this.bonusHpWin += enemy.getBonusHpWin();

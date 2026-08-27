@@ -45,7 +45,11 @@ public class GameController {
 
         return null;
     }
-
+/**
+     * Controlla se il player ha incontrato un nemico durante lo spostamento.
+     *
+     * @return L'oggetto Enemy incontrato, oppure null se non c'è stato alcun incontro.
+     */
     private Enemy checkForEncounter() {
         if (random.nextInt(100) < ENEMY_PROBABILITY) {
             return createRandomEnemy(player.getVictories());
