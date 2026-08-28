@@ -1,10 +1,8 @@
 package it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies;
 
-import it.unicam.cs.mpgc.rpg130670.overscaled.model.Stats;
-
 public class Wolf extends Enemy {
     public Wolf(int victories) {
-        super("Lupo", new Stats(380, 25), victories);
+        super(EnemyType.WOLF, victories);
     }
     @Override
     public int calculateDamage(int turn) {
@@ -14,10 +12,4 @@ public class Wolf extends Enemy {
         }
         return currentDmg;
     }
-    @Override
-    public int getBonusHpWin() { return 15; }
-    @Override
-    public int getBonusDamageWin() { return 7; }
-    @Override
-    public double getHealPercentage() { return 0.50; }
 }
