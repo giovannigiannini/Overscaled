@@ -3,7 +3,7 @@ import it.unicam.cs.mpgc.rpg130670.overscaled.model.Stats;
 
 public class SpearAndShield extends Weapon {
     public SpearAndShield() {
-        super("Scudo & Lancia", new Stats(1200,80), " +20 danno ogni vittoria \n+65 vita ogni vittoria", "player_icon_ss.png");
+        super("Scudo & Lancia", new Stats(1200,70), " +20 danno ogni vittoria \n+65 vita ogni vittoria", "player_icon_ss.png");
     }
     @Override
     public int calculateDamageWin(int victories) { return getBaseStats().damage() + victories * 20; }

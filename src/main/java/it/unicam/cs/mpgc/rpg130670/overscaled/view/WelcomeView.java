@@ -31,11 +31,8 @@ import java.util.List;
  */
 public class WelcomeView {
     private final BorderPane root;
-    private final SceneManager sceneManager;
 
     public WelcomeView(SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
-
         root = new BorderPane();
         root.setStyle(UIStyle.MAIN_CONTAINER);
         root.setPadding(new Insets(20));
