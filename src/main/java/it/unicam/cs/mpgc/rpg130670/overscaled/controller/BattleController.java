@@ -6,7 +6,7 @@ import it.unicam.cs.mpgc.rpg130670.overscaled.model.entity.enemies.Enemy;
 
 /**
  * Controller per la gestione del combattimento tra il Player e un Enemy.
- * Calcola i turni e i danni applicati senza occuparsi della formattazione grafica (SRP).
+ * Calcola i danni inflitti da entrambi i partecipanti e gestisce la logica di vittoria/sconfitta.
  *
  * @author Giannini Giovanni
  */

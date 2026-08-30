@@ -28,7 +28,7 @@ Il giocatore personalizza il proprio eroe scegliendo l'arma ed esplora la mappa 
 ## 🤖 Uso di strumenti di AI
 1. **Gemini**, utilizzato per:  
    **a. Chiarire errori di compilazione** (gestione import, dipendenze Gradle, errori di javaFX).  
-   **b. Suggerimenti su struttura del codice e separazione delle responsabilità** (SOC).  
+   **b. Suggerimenti su struttura del codice, separazione delle responsabilità**.  
    **c.** Idee per la **gestione della logica dello scaling** per rendere il gioco bilanciato (sia per le armi che per i nemici) e una **palette per avere l'estetica di gioco uniforme**  
    **d. Debugging generale** (esempio: JSON non creava il file per un'errore di percorso individuato con gemini).
 2. **GitHub Copilot**: usato per velocizzare la scrittura dei metodi semplici e del codice in generale ad  esempio i metodi ereditati in alcune classi, getter e setter.
