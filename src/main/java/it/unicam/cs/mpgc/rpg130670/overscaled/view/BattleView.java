@@ -3,6 +3,7 @@ package it.unicam.cs.mpgc.rpg130670.overscaled.view;
 import it.unicam.cs.mpgc.rpg130670.overscaled.controller.BattleController;
 import it.unicam.cs.mpgc.rpg130670.overscaled.controller.GameController;
 import it.unicam.cs.mpgc.rpg130670.overscaled.controller.SceneManager;
+import it.unicam.cs.mpgc.rpg130670.overscaled.model.TurnResult;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -16,8 +17,7 @@ import javafx.scene.text.FontWeight;
 
 /**
  * Vista per la schermata di combattimento.
- * Mostra le statistiche del giocatore e del nemico, un'area di log per gli eventi di combattimento e un pulsante per eseguire l'attacco.
- * Gestisce direttamente l'interfaccia e la notifica di avvio allo SceneManager.
+ * Mostra le statistiche, gestisce l'input dell'utente e formatta i messaggi di log per l'interfaccia.
  *
  * @author Giannini Giovanni
  */
@@ -90,29 +90,57 @@ public class BattleView {
         root.getChildren().addAll(title, statsBox, logArea, actionButton);
         updateUi();
     }
+
     /**
-     * Gestisce l'evento di attacco del giocatore.
-     * Aggiorna il log di combattimento, le statistiche e verifica le condizioni di vittoria o sconfitta.
+     * Gestisce l'evento di attacco richiedendo l'esecuzione del turno al controller
+     * e aggiornando la vista in base al risultato grezzo ricevuto.
      */
     private void handleAttack() {
-        String turnLog = controller.executeTurn();
-        logArea.appendText(turnLog);
+        TurnResult result = controller.executeTurn();
 
-        logArea.setScrollTop(Double.MAX_VALUE);
-        logArea.selectRange(logArea.getLength(), logArea.getLength());
-
+        appendTurnLog(result);
         updateUi();
 
-        // Morte del Player
-        if (!controller.getPlayer().isAlive()) {
+        if (result.playerKilled()) {
             sceneManager.showEndScreen(controller.getPlayer());
-        }
-        // Vittoria del Player
-        else if (!controller.getEnemy().isAlive()) {
+        } else if (result.enemyKilled()) {
             actionButton.setText("TORNA ALLA MAPPA");
             actionButton.setStyle(UIStyle.BUTTON_GREEN);
             actionButton.setOnAction(e -> sceneManager.returnToMap(new GameView(gameController, sceneManager)));
         }
+    }
+
+    /**
+     * Formatta e aggiunge il messaggio visivo all'area di log basandosi sui dati del BattleResult.
+     */
+    private void appendTurnLog(TurnResult result) {
+        StringBuilder log = new StringBuilder();
+
+        log.append(String.format("Turno %d: %s infligge %d danni con %s!\n",
+                result.turn(),
+                controller.getPlayer().getName(),
+                result.playerDamage(),
+                controller.getPlayer().getWeapon().getName()));
+
+        if (result.enemyKilled()) {
+            log.append("\nHAI VINTO LO SCONTRO!\n")
+                    .append(String.format("Sconfitto %s!\n", controller.getEnemy().getName()))
+                    .append(String.format("Bonus ottenuto: +%d HP | +%d Danno\n", result.hpGained(), result.damageGained()))
+                    .append(String.format("Statistiche attuali -> HP: %d | Danno: %d\n", controller.getPlayer().getMaxHp(), controller.getPlayer().getAttackStat()));
+        } else {
+            log.append(controller.getEnemy().getName())
+                    .append(" risponde infliggendo ")
+                    .append(result.enemyDamage())
+                    .append(" danni!\n\n");
+
+            if (result.playerKilled()) {
+                log.append("\nHAI PERSO! GAME OVER\n");
+            }
+        }
+
+        logArea.appendText(log.toString());
+        logArea.setScrollTop(Double.MAX_VALUE);
+        logArea.selectRange(logArea.getLength(), logArea.getLength());
     }
 
     private void updateUi() {
