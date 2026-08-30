@@ -58,12 +58,8 @@ public class GameController {
     }
 
     private Enemy createRandomEnemy(int victories) {
-        int roll = random.nextInt(3);
-        return switch (roll) {
-            case 0 -> new Gorilla(victories);
-            case 1 -> new Wolf(victories);
-            default -> new Snake(victories);
-        };
+        EnemyType[] enemy = EnemyType.values();
+        return enemy[random.nextInt(enemy.length)].create(victories);
     }
 
     public String getPlayerSpritePath() {
